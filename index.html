@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repositorio de Clases - Ciencia de Datos y Machine Learning</title>
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-hover: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --tag-bg: #f1f5f9;
+      --tag-text: #334155;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2.5rem 1.25rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1.75rem;
+    }
+
+    .badge-course {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background-color: #eff6ff;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding-top: 0.5rem;
+    }
+
+    .meta-item strong {
+      color: var(--text-main);
+    }
+
+    .classes-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      background-color: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .card-description {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.15s ease, opacity 0.15s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--tag-bg);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      opacity: 0.85;
+    }
+
+    .card-upcoming {
+      opacity: 0.65;
+      border-style: dashed;
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1.5rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge-course">Especialización • Semestre 1</span>
+      <h1>Ciencia de Datos y Aprendizaje Automático</h1>
+      <p class="subtitle">Directorio central de prácticas, protocolos reproducibles y reportes generados en R Markdown.</p>
+      <div class="meta-bar">
+        <div class="meta-item">Estudiante: <strong>Briam Torres</strong></div>
+        <div class="meta-item">Repositorio: <strong>BriamTorres/CienciaDatosRepo</strong></div>
+        <div class="meta-item">Plataforma: <strong>GitHub Pages</strong></div>
+      </div>
+    </header>
+
+    <main class="classes-grid">
+      <!-- CLASE 1 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Clase 01: Limpieza y Diagnóstico de Datos</h2>
+          <span class="card-tag">R Markdown • HTML</span>
+        </div>
+        <p class="card-description">
+          Diagnóstico de calidad de datos (<em>Data Profiling</em>) sobre variables cualitativas y cuantitativas: 
+          detección de errores de digitación, tratamiento de valores nulos (<code>NA</code>), salarios negativos, 
+          inconsistencias por sensibilidad a mayúsculas/minúsculas y corrección de outliers con gráficos de caja.
+        </p>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="Clase1/Protocolo/limpiezaDatos.html" target="_blank">
+            Abrir Reporte HTML ↗
+          </a>
+          <a class="btn btn-secondary" href="Clase1/Protocolo/limpiezaDatos.Rmd" target="_blank">
+            Código Fuente (.Rmd)
+          </a>
+          <a class="btn btn-secondary" href="Clase1/Resultados/dataset_clase_1_limpio.csv" download>
+            Dataset Limpio (.csv)
+          </a>
+        </div>
+      </article>
+
+      <!-- PLANTILLA PRÓXIMA CLASE -->
+      <article class="card card-upcoming">
+        <div class="card-header">
+          <h2 class="card-title">Clase 02: Modelado / Próximo Protocolo</h2>
+          <span class="card-tag">Próximamente</span>
+        </div>
+        <p class="card-description">
+          Espacio preparado para la siguiente práctica o sesión. Al generar el nuevo archivo HTML con RStudio o VS Code, 
+          se vinculará en esta sección de forma automática.
+        </p>
+        <div class="card-actions">
+          <span class="btn btn-secondary" style="cursor: not-allowed;">En preparación</span>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <p>Publicado con GitHub Pages • Repositorio <a href="https://github.com/BriamTorres/CienciaDatosRepo" target="_blank">BriamTorres/CienciaDatosRepo</a></p>
+    </footer>
+  </div>
+</body>
+</html>
+

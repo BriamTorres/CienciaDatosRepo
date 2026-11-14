@@ -1,0 +1,24 @@
+# Historial de R y archivos de sesión
+.Rhistory
+.RData
+.Ruserdata
+
+# Archivos específicos de RStudio
+.Rproj.user/
+
+# Paquetes y compilaciones locales
+*.tar.gz
+*.Rcheck/
+
+# Carpetas temporales y caches
+.Rproj.user
+.Rcache
+
+# Entornos virtuales de R / renv (si se usa)
+# renv/library/
+# renv/python/
+
+# Datos pesados o sensibles (descomentar si aplica)
+# data/raw/*.csv
+# data/raw/*.xlsx
+

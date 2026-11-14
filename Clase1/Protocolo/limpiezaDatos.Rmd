@@ -1,0 +1,465 @@
+---
+title: "Limpieza Datos"
+author: "Briam Stiven"
+date: "2026-11-14"
+output: html_document
+---
+
+# LIMPIEZA DE DATOS
+
+En este documento se realiza la fase inicial de exploración y diagnóstico de calidad sobre el conjunto de datos (`dataset_clase_1.csv`), verificando su estructura, variables y posibles inconsistencias previas a la limpieza.
+
+---
+
+## 1. Verificación del Directorio de Datos
+
+Antes de realizar la carga, exploramos qué archivos existen en la carpeta `Datos` mediante una ruta relativa:
+
+```{r}
+# Visualizo los archivos disponibles en la carpeta Datos
+list.files("../Datos")
+```
+
+---
+
+## 2. Carga del Conjunto de Datos
+
+Cargamos el archivo CSV en la variable `data` para estructurarlo como un *data frame* en el entorno de trabajo:
+
+```{r}
+# En esta línea cargamos la matriz de datos
+data <- read.csv("../Datos/dataset_clase_1.csv")
+```
+
+---
+
+## 3. Exploración y Diagnóstico Inicial
+
+### 3.1 Primeras observaciones
+Inspeccionamos los primeros 6 registros para tener una vista previa del contenido y los valores de cada atributo:
+
+```{r}
+# Visualizamos las primeras filas
+head(data)
+```
+
+### 3.2 Dimensiones de la matriz
+Consultamos la cantidad total de observaciones (filas) y atributos o características (columnas):
+
+```{r}
+# Retorna: [número de filas, número de columnas]
+dim(data)
+```
+
+### 3.3 Nombres de las variables
+Identificamos los nombres asignados a cada una de las columnas del conjunto de datos:
+
+```{r}
+# Listado de nombres de columnas
+colnames(data)
+```
+
+### 3.4 Estructura interna y tipos de datos
+Examinamos el tipo de dato asignado por defecto a cada columna (numérico, texto, etc.) y una muestra de sus primeros valores:
+
+```{r}
+# Estructura general de las variables
+str(data)
+```
+
+---
+
+## 4. Análisis y Argumentación de Variables Cualitativas (Categóricas)
+
+Para cada una de las variables cualitativas generamos su tabla de frecuencias ordenada de mayor a menor y documentamos los hallazgos e inconsistencias observadas.
+
+---
+
+### 4.1 Variable: Profesión
+
+```{r}
+# Tabla de frecuencias ordenada para Profesión
+tabla_profesion <- data.frame(sort(table(data$Profesion), decreasing = TRUE))
+colnames(tabla_profesion) <- c("Profesion", "Frecuencia")
+tabla_profesion
+```
+
+> **Argumentación y hallazgos en Profesión:**
+> * **División por género gramatical:** Se cuenta por separado `Ingeniero` (8) e `Ingeniera` (1). Si el objetivo analítico es la ocupación, deberían consolidarse bajo una misma etiqueta.
+> * **Ortografía / Tildes:** Faltan acentos ortográficos en `Medico` (Médico) y `Psicologa` (Psicóloga).
+> * **Distribución:** La profesión predominante en la muestra es Ingeniería (9 registros en total), seguida de Docente y Estudiante (3 cada una).
+
+---
+
+### 4.2 Variable: Género
+
+```{r}
+# Tabla de frecuencias ordenada para Género
+tabla_genero <- data.frame(sort(table(data$Genero), decreasing = TRUE))
+colnames(tabla_genero) <- c("Genero", "Frecuencia")
+tabla_genero
+```
+
+> **Argumentación y hallazgos en Género:**
+> * **Inconsistencia de mayúsculas y minúsculas (*Case Sensitivity*):** R distingue entre mayúsculas y minúsculas, por lo que fragmenta la variable en cuatro categorías en lugar de dos:
+>   * Masculino: `MASCULINO` (16) y `Masculino` (1) -> Total: 17
+>   * Femenino: `Femenino` (8) y `FEMENINO` (5) -> Total: 13
+> * **Acción requerida en limpieza:** Estandarizar el texto a un formato único (ejemplo: todo mayúsculas o tipo título como `Masculino` / `Femenino`).
+
+---
+
+### 4.3 Variable: Ciudad
+
+```{r}
+# Tabla de frecuencias ordenada para Ciudad
+tabla_ciudad <- data.frame(sort(table(data$Ciudad), decreasing = TRUE))
+colnames(tabla_ciudad) <- c("Ciudad", "Frecuencia")
+tabla_ciudad
+```
+
+> **Argumentación y hallazgos en Ciudad:**
+> * **Fragmentación por ortografía y mayúsculas:** La ciudad de Bogotá aparece dividida en 3 formas distintas:
+>   * `Bogotá` (11) con tilde y mayúscula inicial.
+>   * `bogotá` (1) en minúscula.
+>   * `bogota` (1) en minúscula y sin tilde.
+>   * En total son 13 registros de Bogotá, pero R los interpreta como tres ciudades diferentes.
+> * **Acción requerida en limpieza:** Homogeneizar los nombres de las ciudades corrigiendo tildes y aplicando mayúscula inicial (`Bogotá`, `Cali`, `Medellín`).
+
+---
+
+### 4.4 Variable: Estado Civil
+
+```{r}
+# Tabla de frecuencias ordenada para Estado Civil
+tabla_estado_civil <- data.frame(sort(table(data$Estado_Civil), decreasing = TRUE))
+colnames(tabla_estado_civil) <- c("Estado_Civil", "Frecuencia")
+tabla_estado_civil
+```
+
+> **Argumentación y hallazgos en Estado Civil:**
+> * **Múltiples inconsistencias simultáneas:**
+>   * **Soltería:** Se divide en `Soltera` (10), `SOLTERO` (4) y `Soltero` (2) -> Total: 16.
+>   * **Matrimonio:** Se divide en `Casado` (8), `Casada` (3) y `CASADO` (1) -> Total: 12.
+>   * **Unión Libre:** Se divide en `UNION LIBRE` (1) y `Union libre` (1) -> Total: 2.
+> * **Problemas identificados:**
+>   1. Uso mixto de mayúsculas sostenidas y capitalizado.
+>   2. Distinción innecesaria de género gramatical (`Casado`/`Casada`, `Soltero`/`Soltera`) que dispersa las categorías.
+> * **Acción requerida en limpieza:** Reclasificar y homologar en tres categorías limpias: `Soltero`, `Casado` y `Unión Libre`.
+
+---
+
+### 4.5 Variable: Nivel Educativo
+
+```{r}
+# Tabla de frecuencias ordenada para Nivel Educativo
+tabla_nivel_educativo <- data.frame(sort(table(data$Nivel_Educativo), decreasing = TRUE))
+colnames(tabla_nivel_educativo) <- c("Nivel_Educativo", "Frecuencia")
+tabla_nivel_educativo
+```
+
+> **Argumentación y hallazgos en Nivel Educativo:**
+> * **Consistencia óptima:** Es la única variable cualitativa que no presenta errores tipográficos, problemas de tildes ni dispersión por mayúsculas.
+> * **Escala ordinal:** Los niveles presentes siguen una jerarquía clara: `Bachiller` (2) < `Universitario` (18) < `Especialización` (6) < `Maestría` (4).
+> * **Predominio:** La gran mayoría de los registros cuenta con nivel `Universitario` (60%).
+
+---
+
+## 5. Resumen del Diagnóstico de Variables Cualitativas
+
+En conclusión, la exploración inicial de las variables cualitativas revela los siguientes problemas recurrentes en la fuente de datos:
+
+1. **Sensibilidad a mayúsculas y minúsculas (*Case Sensitivity*):** Afecta fuertemente a `Genero`, `Estado_Civil` y `Ciudad`.
+2. **Errores tipográficos y ausencia de acentos:** Detectado en `Ciudad` (`bogota`) y `Profesion` (`Medico`, `Psicologa`).
+3. **Redundancia por género gramatical:** Afecta a `Profesion` (`Ingeniero`/`Ingeniera`) y `Estado_Civil` (`Soltero`/`Soltera`, `Casado`/`Casada`).
+
+---
+
+## 6. Análisis y Argumentación de Variables Cuantitativas (Numéricas)
+
+A diferencia de las variables cualitativas (que se estudian con tablas de frecuencias), las variables cuantitativas se analizan a través de medidas de tendencia central (media, mediana), posición (mínimo, máximo, cuartiles), dispersión, visualización gráfica (diagramas de caja e histogramas) y detección de valores faltantes (`NA`) o anomalías numéricas.
+
+### 6.1 Resumen Estadístico Comparativo
+
+```{r}
+# Resumen descriptivo general de las variables cuantitativas
+summary(data[, c("Edad", "Ingreso", "Hijos")])
+```
+
+---
+
+### 6.2 Variable: Ingreso
+
+Analizamos la distribución de los ingresos monetarios de los participantes mediante estadística descriptiva y el diagrama de caja (*boxplot*).
+
+```{r}
+# Estadísticas descriptivas de Ingreso
+summary(data$Ingreso)
+
+# Conteo de valores faltantes (NA) en Ingreso
+sum(is.na(data$Ingreso))
+
+# Registros con ingresos anómalos (negativos o cero)
+data[which(data$Ingreso <= 0), c("ID", "Nombre", "Apellido", "Ingreso", "Profesion")]
+```
+
+#### Gráfica: Diagrama de Caja (*Boxplot*) de Ingreso
+
+```{r}
+# Diagrama de caja horizontal para la variable Ingreso
+boxplot(data$Ingreso, 
+        horizontal = TRUE, 
+        col = "blue", 
+        main = "Diagrama de Caja: Distribución de Ingresos",
+        xlab = "Ingreso ($)")
+```
+
+> **Argumentación e interpretación visual del gráfico de Ingreso:**
+> * **Valores atípicos superiores (*Outliers* a la derecha):** Se observa un punto aislado en el extremo derecho en **$50,000** y otro en **$8,000**. El valor de $50,000 es extremadamente desproporcionado respecto al resto de la muestra, lo que "comprime" visualmente la caja.
+> * **Valores anómalos inferiores (Puntos a la izquierda del cero):** Los círculos a la izquierda representan valores imposibles para ingresos salariales: **-$2,000**, **-$1,500** y **$0.0**.
+> * **Caja intercuartílica comprimida:** El 50% central de la muestra (entre el cuartil 1 y 3) está entre **$1,200 y $1,625**, lo que evidencia que la gran mayoría de ingresos están en ese rango, y la media ($3,200) está severamente distorsionada por el dato extremo de $50,000.
+> * **Datos faltantes:** Existen **2 registros con valor `NA`** que no se grafican en el boxplot y deben ser tratados en la limpieza.
+
+---
+
+### 6.3 Variable: Edad
+
+```{r}
+# Estadísticas descriptivas de Edad
+summary(data$Edad)
+
+# Conteo de valores faltantes (NA) en Edad
+sum(is.na(data$Edad))
+```
+
+#### Gráfica: Diagrama de Caja (*Boxplot*) de Edad
+
+```{r}
+# Diagrama de caja horizontal para la variable Edad
+boxplot(data$Edad, 
+        horizontal = TRUE, 
+        col = "orange", 
+        main = "Diagrama de Caja: Distribución de Edad",
+        xlab = "Años")
+```
+
+> **Argumentación e interpretación visual del gráfico de Edad:**
+> * **Error de digitación evidente (*Outlier*):** El punto aislado en **200 años** es imposible en términos humanos. Este error genera que la caja se comprima totalmente hacia la izquierda.
+> * **Rango real de la muestra:** Excluyendo el valor 200, las edades van de **22 a 60 años**, con una mediana de **29.5 años**.
+> * **Datos faltantes:** Presenta **2 registros nulos (`NA`)**.
+
+---
+
+### 6.4 Variable: Hijos
+
+```{r}
+# Frecuencia de la variable cuantitativa discreta Hijos
+table(data$Hijos)
+
+# Conteo de valores faltantes (NA) en Hijos
+sum(is.na(data$Hijos))
+```
+
+#### Gráfica: Diagrama de Barras de Hijos
+
+```{r}
+# Gráfico de barras para la variable discreta Hijos
+barplot(table(data$Hijos), 
+        col = "steelblue", 
+        main = "Distribución del Número de Hijos",
+        xlab = "Cantidad de Hijos", 
+        ylab = "Frecuencia (Personas)")
+```
+
+> **Argumentación y hallazgos en Hijos:**
+> * **Calidad de los datos:** Variable cuantitativa discreta **completamente limpia**; sin registros nulos (`NA = 0`) ni valores negativos.
+> * **Comportamiento muestral:** La moda es **0 hijos** (más del 53% de la muestra no tiene hijos), lo cual es coherente con una población mayoritariamente joven.
+
+---
+
+## 7. Diagnóstico General Consolidado para la Limpieza
+
+| Tipo de Variable | Variables | Diagnóstico y Defectos Encontrados | Estrategia de Limpieza Recomendada |
+| :--- | :--- | :--- | :--- |
+| **Cualitativas** | `Genero`, `Ciudad`, `Estado_Civil`, `Profesion` | Errores de tipografía, tildes faltantes, dispersión por mayúsculas/minúsculas y duplicación por género gramatical. | Estandarizar a formato texto uniforme, corregir ortografía y recodificar categorías sinónimas. |
+| **Cuantitativas** | `Edad`, `Ingreso`, `Hijos` | Valores nulos (`NA`), valores negativos imposibles (`-$2000`, `-$1500`) y valores atípicos extremos (`Edad=200`, `Ingreso=50000`). | Imputar o filtrar nulos, corregir o transformar ingresos negativos, y aislar o tratar valores extremos. |
+
+---
+
+# FASE DE LIMPIEZA Y TRANSFORMACIÓN DE DATOS
+
+A partir del diagnóstico realizado en las secciones anteriores, procedemos a ejecutar la etapa formal de saneamiento y preparación de datos.
+
+---
+
+## 8. Procedimiento de Limpieza Paso a Paso
+
+### 8.1 Creación de Copia de Trabajo
+Como principio fundamental de gobernanza y linaje de datos (*Data Lineage*), nunca modificamos directamente el conjunto crudo original. Creamos una copia de trabajo denominada `data_limpia`:
+
+```{r}
+# Creamos una copia independiente para realizar la limpieza
+data_limpia <- data
+```
+
+---
+
+### 8.2 Detección y Eliminación de Registros Duplicados
+Identificamos duplicidades por combinación de identidad (`Nombre`, `Apellido` y `Email`):
+
+```{r}
+# Identificamos los registros duplicados
+filas_duplicadas <- data_limpia[duplicated(data_limpia[, c("Nombre", "Apellido", "Email")]), ]
+filas_duplicadas[, c("ID", "Nombre", "Apellido", "Email", "Ciudad")]
+
+# Eliminamos duplicados manteniendo únicamente la primera aparición
+data_limpia <- data_limpia[!duplicated(data_limpia[, c("Nombre", "Apellido", "Email")]), ]
+
+# Verificamos la nueva dimensión del dataset
+dim(data_limpia)
+```
+
+> **Resultado del filtro:** Se identificaron y eliminaron **3 registros duplicados** (IDs 7, 21 y 30). La muestra pasa de 30 a **27 observaciones únicas**.
+
+---
+
+### 8.3 Estandarización de Variables Cualitativas
+
+#### A. Homogeneización de Género
+Corregimos la inconsistencia de mayúsculas y minúsculas para unificar en dos categorías (`Masculino` y `Femenino`):
+
+```{r}
+# Unificamos el formato de Género
+data_limpia$Genero <- ifelse(grepl("^m", data_limpia$Genero, ignore.case = TRUE), "Masculino", "Femenino")
+
+# Comprobación de la variable limpia
+table(data_limpia$Genero)
+```
+
+#### B. Corrección de Ciudad
+Unificamos las tres formas de Bogotá (`Bogotá`, `bogotá`, `bogota`) bajo una etiqueta correcta con tilde y mayúscula inicial:
+
+```{r}
+# Estandarización de Ciudad
+data_limpia$Ciudad <- ifelse(grepl("bog", data_limpia$Ciudad, ignore.case = TRUE), "Bogotá", data_limpia$Ciudad)
+
+# Comprobación de la variable limpia
+table(data_limpia$Ciudad)
+```
+
+#### C. Normalización de Estado Civil
+Reclasificamos las 8 variantes en tres grupos analíticos (`Soltero`, `Casado` y `Unión Libre`):
+
+```{r}
+# Homologación de Estado Civil
+data_limpia$Estado_Civil <- ifelse(grepl("solter", data_limpia$Estado_Civil, ignore.case = TRUE), "Soltero",
+                            ifelse(grepl("casad", data_limpia$Estado_Civil, ignore.case = TRUE), "Casado", "Unión Libre"))
+
+# Comprobación de la variable limpia
+table(data_limpia$Estado_Civil)
+```
+
+#### D. Corrección de Profesión
+Corregimos los acentos omitidos (`Médico`, `Psicóloga`) y homogeneizamos por ocupación (`Ingeniera` -> `Ingeniero`):
+
+```{r}
+# Corrección ortográfica y de género ocupacional
+data_limpia$Profesion[data_limpia$Profesion == "Ingeniera"] <- "Ingeniero"
+data_limpia$Profesion[data_limpia$Profesion == "Medico"] <- "Médico"
+data_limpia$Profesion[data_limpia$Profesion == "Psicologa"] <- "Psicóloga"
+
+# Comprobación de la variable limpia
+table(data_limpia$Profesion)
+```
+
+---
+
+### 8.4 Tratamiento de Variables Cuantitativas
+
+#### A. Corrección e Imputación de Edad
+1. Sustituimos el valor anómalo de **200 años** por `NA`.
+2. Imputamos los valores faltantes (`NA`) utilizando la **mediana** de edad (medida robusta ante asimetrías):
+
+```{r}
+# Tratamiento del outlier imposible
+data_limpia$Edad[data_limpia$Edad > 100] <- NA
+
+# Cálculo de la mediana de edad en valores válidos
+mediana_edad <- round(median(data_limpia$Edad, na.rm = TRUE))
+
+# Imputación de valores faltantes (NA)
+data_limpia$Edad[is.na(data_limpia$Edad)] <- mediana_edad
+
+# Verificación de que no queden nulos
+sum(is.na(data_limpia$Edad))
+summary(data_limpia$Edad)
+```
+
+#### B. Corrección e Imputación de Ingreso
+1. Transformamos los ingresos negativos a positivos mediante la función de valor absoluto `abs()`.
+2. Imputamos los valores faltantes (`NA`) con la mediana representativa del grupo típico (excluyendo el outlier de $50,000 para no sesgar el valor imputado):
+
+```{r}
+# Corrección del signo negativo por error de digitación
+data_limpia$Ingreso <- abs(data_limpia$Ingreso)
+
+# Mediana representativa (calculada sobre ingresos típicos < $20,000)
+mediana_ingreso <- median(data_limpia$Ingreso[data_limpia$Ingreso < 20000], na.rm = TRUE)
+
+# Imputación de valores faltantes
+data_limpia$Ingreso[is.na(data_limpia$Ingreso)] <- mediana_ingreso
+
+# Verificación de que no queden valores negativos ni nulos
+sum(data_limpia$Ingreso < 0)
+sum(is.na(data_limpia$Ingreso))
+```
+
+---
+
+## 9. Comparación y Validación (Antes vs Después)
+
+Evaluamos el impacto de la limpieza comparando visual y estadísticamente el conjunto inicial frente al depurado:
+
+### 9.1 Comparativa Visual: Distribución de Ingresos
+
+```{r fig.width=9, fig.height=4}
+# Configuración de panel 1 fila x 2 columnas para contraste
+par(mfrow = c(1, 2))
+
+# Boxplot original
+boxplot(data$Ingreso, 
+        main = "Antes: Ingreso Crudo", 
+        col = "salmon", 
+        horizontal = TRUE, 
+        xlab = "Ingreso ($)")
+
+# Boxplot limpio
+boxplot(data_limpia$Ingreso, 
+        main = "Después: Ingreso Limpio", 
+        col = "lightgreen", 
+        horizontal = TRUE, 
+        xlab = "Ingreso ($)")
+
+# Restaurar panel gráfico
+par(mfrow = c(1, 1))
+```
+
+### 9.2 Resumen Estadístico Final
+
+```{r}
+# Resumen global de las variables numéricas depuradas
+summary(data_limpia[, c("Edad", "Ingreso", "Hijos")])
+```
+
+---
+
+## 10. Exportación de los Resultados
+
+Finalmente, guardamos la matriz de datos limpia en la carpeta `Resultados` en formato CSV para garantizar su disponibilidad en las siguientes etapas analíticas y de modelado:
+
+```{r}
+# Exportamos el data frame limpio a la carpeta Resultados
+write.csv(data_limpia, "../Resultados/dataset_clase_1_limpio.csv", row.names = FALSE)
+```
+
+> **Archivo exportado con éxito:** `Resultados/dataset_clase_1_limpio.csv` con **27 observaciones** y **12 variables** completamente estandarizadas y saneadas.
+

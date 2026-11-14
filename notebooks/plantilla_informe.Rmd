@@ -1,0 +1,68 @@
+---
+title: "Informe Técnico de Análisis de Datos"
+subtitle: "Ciencia de Datos y Aprendizaje Automático para la Toma de Decisiones"
+author: "Estudiante"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cosmo
+    highlight: tango
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.align = "center")
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+## 1. Introducción y Contexto del Negocio
+
+En esta sección se describe el problema a resolver, el objetivo del análisis y la justificación de cómo la Ciencia de Datos apoya la toma de decisiones.
+
+## 2. Carga y Exploración de Datos
+
+```{r carga_datos}
+# Carga de datos de ejemplo
+datos <- mtcars
+glimpse(datos)
+```
+
+### Resumen Estadístico
+
+```{r tabla_resumen}
+datos %>%
+  summarise(
+    Media_MPG = mean(mpg),
+    Desv_MPG = sd(mpg),
+    Media_HP = mean(hp),
+    Mediana_WT = median(wt)
+  ) %>%
+  kable(caption = "Métricas principales de las variables clave") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+## 3. Visualización y Hallazgos
+
+```{r visualizacion}
+ggplot(datos, aes(x = wt, y = mpg, color = factor(gear))) +
+  geom_point(size = 3) +
+  geom_smooth(method = "loess", se = FALSE) +
+  theme_minimal() +
+  labs(
+    title = "Relación entre Peso del Vehículo y Eficiencia",
+    x = "Peso (miles de lbs)",
+    y = "Millas por Galón (MPG)",
+    color = "Velocidades"
+  )
+```
+
+## 4. Conclusiones y Toma de Decisiones
+
+1. **Hallazgo 1:** Resumen del hallazgo principal.
+2. **Impacto en el negocio:** Cómo se traduce este hallazgo en una decisión accionable.
+3. **Próximos pasos:** Modelado predictivo o recolección de variables adicionales.
+
