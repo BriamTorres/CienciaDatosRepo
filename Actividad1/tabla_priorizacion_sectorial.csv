@@ -1,0 +1,45 @@
+RAMA2D_R4,rama,ocupados_muestra,ocupados_expandidos,nivel_edu_predominante,pct_hasta_secundaria,pct_hasta_media,mediana_ingreso,media_ingreso,clasificacion_prioridad
+03,Pesca y acuicultura,121,94535,Básica primaria,79.3,97.5,800000,937554,Grupo 3: Mayor prioridad potencial
+01,Agricultura y ganadería,2277,2762731,Básica primaria,72.4,92,1000000,1234058,Grupo 3: Mayor prioridad potencial
+07,Minerales metalíferos,132,203665,Básica primaria,61.4,91.7,800000,1311621,Grupo 3: Mayor prioridad potencial
+38,Residuos,200,132153,Básica primaria,61,85.5,800000,1062128,Grupo 3: Mayor prioridad potencial
+81,Servicios a edificios,837,629289,Media académica,55,91.9,600000,752076,Grupo 3: Mayor prioridad potencial
+41,Construcción de edificios,1441,1120306,Media académica,54.9,87,1400000,1466293,Grupo 3: Mayor prioridad potencial
+97,Servicio doméstico,929,705026,Media académica,53.4,89.9,968000,1080620,Grupo 3: Mayor prioridad potencial
+15,Cuero y calzado,208,173672,Media académica,45.7,82.7,720000,1095620,Grupo 3: Mayor prioridad potencial
+95,Reparación de computadores y enseres,358,246884,Media académica,41.1,76.5,900000,1027743,Grupo 3: Mayor prioridad potencial
+31,Muebles,251,215529,Media académica,44.2,84.5,1423500,1566961,Grupo 2: Prioridad intermedia
+52,Almacenamiento y logística,321,247750,Media académica,37.7,69.2,1400000,1442992,Grupo 2: Prioridad intermedia
+49,Transporte terrestre,1756,1251862,Media académica,35.9,80.8,1400000,1443277,Grupo 2: Prioridad intermedia
+56,Comidas y bebidas,2350,1685956,Media académica,33.3,74.6,1120000,1232260,Grupo 2: Prioridad intermedia
+92,Juegos de azar,113,95278,Media académica,30.1,68.1,1200000,1116372,Grupo 2: Prioridad intermedia
+47,Comercio al por menor,4124,2992374,Media académica,27.9,68.9,1423000,1400353,Grupo 2: Prioridad intermedia
+14,Confección de prendas,464,436737,Media académica,26.5,69.8,1400000,1336524,Grupo 2: Prioridad intermedia
+32,Otras manufacturas,116,138885,Media académica,25,60.3,1000000,2004435,Grupo 2: Prioridad intermedia
+96,Otros servicios personales,917,679905,Media académica,19.6,68.3,1000000,1159881,Grupo 2: Prioridad intermedia
+45,Venta y reparación de vehículos,850,623210,Media académica,35.8,73.6,1423500,1667625,Grupo 1: Menor prioridad relativa
+43,Construcción especializada,380,320392,Media académica,35,74.5,1423500,1514096,Grupo 1: Menor prioridad relativa
+33,Reparación de maquinaria,101,85497,Media académica,33.7,58.4,1600000,1987267,Grupo 1: Menor prioridad relativa
+25,Productos de metal,252,207405,Media académica,29,74.6,1500000,1699125,Grupo 1: Menor prioridad relativa
+10,Alimentos,676,714687,Media académica,23.8,66.7,1423500,1727774,Grupo 1: Menor prioridad relativa
+42,Obras de ingeniería civil,223,176285,Media académica,22.9,57,1623500,2138749,Grupo 1: Menor prioridad relativa
+68,Inmobiliarias,320,354426,Media académica,19.7,65.9,1600000,1983495,Grupo 1: Menor prioridad relativa
+55,Alojamiento,277,128682,Media académica,19.5,61.7,1500000,1742841,Grupo 1: Menor prioridad relativa
+46,Comercio al por mayor,578,458012,Media académica,18.9,56.6,1600000,2433063,Grupo 1: Menor prioridad relativa
+53,Correo y mensajería,252,175715,Media académica,16.7,63.1,1423500,1348224,Grupo 1: Menor prioridad relativa
+93,Deporte y recreación,134,130092,Universitaria,14.2,39.6,1423500,1458175,Grupo 1: Menor prioridad relativa
+88,Asistencia social,150,119642,Media académica,14,46.7,1423500,1530117,Grupo 1: Menor prioridad relativa
+80,Seguridad e investigación,180,151592,Media académica,9.4,65.6,1500000,1941794,Grupo 1: Menor prioridad relativa
+94,Asociaciones,191,149485,Universitaria,7.3,28.3,1800000,2899464,Grupo 1: Menor prioridad relativa
+35,Electricidad y gas,128,94445,Media académica,6.2,33.6,2000000,3177762,Grupo 1: Menor prioridad relativa
+73,Publicidad,116,116619,Universitaria,6,27.6,2100000,2970267,Grupo 1: Menor prioridad relativa
+64,Servicios financieros,301,258876,Universitaria,5.6,26.2,2000000,2996128,Grupo 1: Menor prioridad relativa
+82,Apoyo administrativo,293,314990,Universitaria,4.8,29,1600000,1966181,Grupo 1: Menor prioridad relativa
+71,Arquitectura e ingeniería,150,163115,Universitaria,4,14.7,2950000,3868700,Grupo 1: Menor prioridad relativa
+61,Telecomunicaciones,166,134300,Universitaria,3.6,30.7,1500000,2163437,Grupo 1: Menor prioridad relativa
+85,Educación,1278,930928,Universitaria,2.6,12.9,3400000,3706630,Grupo 1: Menor prioridad relativa
+65,Seguros,119,130780,Universitaria,2.5,10.9,2500000,3852592,Grupo 1: Menor prioridad relativa
+84,Administración pública,1410,886047,Universitaria,2.1,17.4,3200000,3938419,Grupo 1: Menor prioridad relativa
+86,Salud humana,1354,906472,Universitaria,1.8,18.8,2000000,2960212,Grupo 1: Menor prioridad relativa
+69,Jurídicas y contables,290,229719,Universitaria,0.7,4.8,2500000,3517159,Grupo 1: Menor prioridad relativa
+62,Desarrollo de software,147,153242,Universitaria,0.7,5.4,3000000,3908388,Grupo 1: Menor prioridad relativa

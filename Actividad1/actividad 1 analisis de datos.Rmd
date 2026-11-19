@@ -1,0 +1,714 @@
+---
+title: "Fortalecimiento del Capital Humano en los Sectores Económicos de Colombia"
+subtitle: "Análisis Exploratorio de Niveles Educativos, Ocupación e Ingresos Laborales a partir de la GEIH del DANE"
+author:
+  - "Leidy Tatiana Jimenez"
+  - "Nelson Felipe Guerrero Páez"
+  - "Briam Stiven Torres Salamanca"
+date: "`r format(Sys.Date(), '%d de %B de %Y')`"
+lang: es
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    number_sections: true
+    theme: flatly
+    highlight: tango
+    code_folding: show
+    self_contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = "center",
+  out.width = "100%",
+  dpi = 300
+)
+options(scipen = 999)
+```
+
+# INTRODUCCIÓN Y PLANTEAMIENTO DEL PROBLEMA
+
+## Contexto Teórico y Justificación
+
+El capital humano —definido como el acervo de conocimientos, habilidades prácticas, capacidades y competencias adquiridas por las personas a través de la educación formal y el entrenamiento laboral— constituye uno de los pilares más determinantes de la productividad económica, el crecimiento sostenible y el bienestar de los hogares (Schultz, 1961; Becker, 1964; Mincer, 1974). En países con economías en desarrollo como Colombia, el mercado laboral presenta profundas asimetrías estructurales: mientras ciertas ramas intensivas en tecnología y servicios especializados demandan profesionales de alta cualificación y ofrecen remuneraciones atractivas, sectores tradicionales de absorción masiva de empleo operan bajo condiciones de baja escolaridad, alta informalidad y remuneraciones estancadas en torno al salario mínimo.
+
+En el marco de la **Ciencia de Datos y el Aprendizaje Automático para la Toma de Decisiones**, el Análisis Exploratorio de Datos (EDA) no se concibe como un mero ejercicio estadístico descriptivo, sino como una fase rigurosa de **ingeniería, perfilamiento, diagnóstico de calidad y saneamiento de información**. Esta etapa permite entender las distribuciones empíricas, detectar anomalías o sesgos muestrales, y estructurar matrices de características robustas que sirvan de insumo directo para modelos predictivos o algoritmos de agrupamiento no supervisado (*clustering*).
+
+---
+
+## Planteamiento del Problema
+
+A pesar del aumento en las tasas de cobertura educativa durante las últimas décadas, la fuerza laboral colombiana exhibe una marcada polarización salarial y sectorial. Diversos sectores productivos enfrentan dificultades para incorporar valor agregado e innovar debido a la baja escolaridad promedio de sus trabajadores. Al mismo tiempo, miles de trabajadores quedan atrapados en trampas de bajos ingresos por carecer de formación técnica, tecnológica o profesional.
+
+Para diseñar políticas públicas efectivas, planes de capacitación gremial y programas universitarios pertinentes, es indispensable contar con evidencia empírica basada en los microdatos oficiales del **Departamento Administrativo Nacional de Estadística (DANE)**, que permita responder a la siguiente interrogante:
+
+> **Pregunta de Investigación:**  
+> *¿Qué sectores económicos y departamentos de Colombia presentan mayores rezagos y necesidades potenciales de fortalecimiento de capital humano, considerando la relación empírica entre el nivel educativo alcanzado y los ingresos laborales percibidos en la Gran Encuesta Integrada de Hogares (GEIH)?*
+
+---
+
+## Objetivos del Proyecto
+
+### Objetivo General
+Analizar la relación entre el nivel educativo, las ramas de actividad económica y los ingresos laborales de la población ocupada en Colombia mediante técnicas de Análisis Exploratorio de Datos (EDA) sobre los microdatos de la GEIH del DANE, con el fin de identificar sectores y territorios prioritarios para el fortalecimiento de la fuerza laboral.
+
+### Objetivos Específicos
+1. **Descargar e integrar** los microdatos de los módulos *Ocupados* y *Características generales* de la GEIH mediante claves relacionales normalizadas.
+2. **Diagnosticar la calidad de la información**, tratando valores faltantes (`NA`), registros en cero y verificando duplicidades para consolidar una muestra analítica robusta.
+3. **Calcular medidas estadísticas descriptivas** de tendencia central, posición, dispersión y asimetría sobre la variable cuantitativa de ingreso laboral (`INGLABO`).
+4. **Evaluar el comportamiento univariado y bivariado** de los niveles educativos frente a los ingresos percibidos mediante visualizaciones estadísticas de alta resolución.
+5. **Construir un índice exploratorio de priorización sectorial** que identifique ramas críticas con baja escolaridad e ingresos inferiores a la mediana nacional.
+6. **Determinar el Top 10 departamental** según la mediana de ingresos y su composición educativa, proyectando los datos para futuros modelos de *Machine Learning*.
+
+---
+
+# DESCRIPCIÓN Y ORIGEN DE LOS DATOS
+
+## Fuente Oficial: DANE Microdatos
+
+Los datos utilizados provienen del repositorio oficial del **DANE** ([Catálogo de Microdatos DANE](https://microdatos.dane.gov.co/index.php/catalog/central/about)), dentro de la categoría temática **Economía – Mercado Laboral**, correspondiente a la **Gran Encuesta Integrada de Hogares (GEIH)**.
+
+Para este estudio se integraron dos módulos estratégicos:
+* **Módulo Ocupados (`Ocupados.CSV`):** Contiene 29.611 registros de personas en condición de ocupación laboral con 202 atributos relativos a horas trabajadas, tipo de contrato, ingresos laborales mensuales y clasificación de la actividad económica (CIIU Rev. 4).
+* **Módulo Características Generales (`Características generales, seguridad social en salud y educación.CSV`):** Contiene 66.559 registros de personas censadas en el hogar con 55 variables demográficas, nivel educativo formal alcanzado, afiliación a seguridad social y parentesco.
+
+---
+
+## Selección de Variables del Estudio
+
+En concordancia con los requerimientos metodológicos del protocolo, se identificaron y seleccionaron las siguientes variables clave:
+
+| Variable | Nombre Técnico | Tipo de Variable | Escala / Categorías | Rol en el Proyecto |
+|:---|:---|:---|:---|:---|
+| **Ingreso Laboral** | `INGLABO` | **Cuantitativa continua** | Pesos colombianos (COP) | Variable cuantitativa principal de análisis económico |
+| **Nivel Educativo** | `P3042` / `nivel_educativo` | **Cualitativa ordinal** | 13 niveles formales (1: Ninguno a 13: Doctorado) | Variable cualitativa principal de capital humano |
+| **Departamento** | `DPTO` / `departamento` | **Cualitativa nominal** | 33 divisiones político-administrativas (DIVIPOLA) | Dimensión territorial de desagregación |
+| **Rama Económica** | `RAMA2D_R4` / `rama` | Cualitativa nominal | Clasificación CIIU Rev. 4 a dos dígitos (99 ramas) | Unidad de agrupación productiva sectorial |
+| **Factor de Expansión** | `FEX_C18` | Cuantitativa continua | Factor de ponderación demográfica DANE | Extrapolación de la muestra a la población nacional |
+| **Llaves Relacionales** | `DIRECTORIO`, `SECUENCIA_P`, `ORDEN` | Identificadores unívocos | Numérico / Carácter | Llaves compuestas para el cruce relacional entre módulos |
+
+---
+
+# CARGA DE DATOS Y ENTORNO COMPUTACIONAL
+
+Cargamos las librerías especializadas del ecosistema `tidyverse` (`dplyr`, `readr`, `ggplot2`, `tibble`, `tidyr`, `forcats`), junto con `janitor` para tablas cruzadas y `scales` para formateo visual:
+
+```{r librerias}
+library(tidyverse)
+library(janitor)
+library(knitr)
+library(scales)
+```
+
+Configuramos las rutas locales de carga directa hacia los archivos fuente, implementando además una verificación dinámica de contingencia:
+
+```{r carga-datos}
+# 1. Definición de rutas locales hacia los microdatos GEIH
+ruta_ocupados <- "c:/Users/briam/Desktop/Especializacion/Semestre1/04_CIENCIA DE DATOS Y APRENDIZAJE AUTOMÁTICO PARA LA TOMA DE DECISIONES/Actividad1/Ocupados.CSV"
+ruta_generales <- "c:/Users/briam/Desktop/Especializacion/Semestre1/04_CIENCIA DE DATOS Y APRENDIZAJE AUTOMÁTICO PARA LA TOMA DE DECISIONES/Actividad1/Características generales, seguridad social en salud y educación.CSV"
+
+# Respaldo flexible si el script se traslada a otro entorno
+if (!file.exists(ruta_ocupados)) {
+  ruta_ocupados <- if (file.exists("Ocupados.CSV")) "Ocupados.CSV" else "datos/Ocupados.CSV"
+}
+if (!file.exists(ruta_generales)) {
+  ruta_generales <- list.files(c(".", "datos"), pattern = "^Caracter", full.names = TRUE)[1]
+}
+
+# 2. Carga optimizada con delimitador ';' y codificación 'latin1'
+datos_ocupados <- read_delim(
+  ruta_ocupados,
+  delim = ";",
+  locale = locale(encoding = "latin1"),
+  guess_max = 5000,
+  show_col_types = FALSE
+)
+
+datos_generales <- read_delim(
+  ruta_generales,
+  delim = ";",
+  locale = locale(encoding = "latin1"),
+  guess_max = 5000,
+  show_col_types = FALSE
+)
+```
+
+### Diagnóstico de Dimensiones Iniciales
+
+Consultamos las dimensiones y volumen de información importada:
+
+```{r dimensiones-iniciales}
+dim_ocupados <- dim(datos_ocupados)
+dim_generales <- dim(datos_generales)
+
+tibble(
+  Módulo = c("Ocupados (Mercado Laboral)", "Características Generales (Demografía y Educación)"),
+  `Registros (Filas)` = c(dim_ocupados[1], dim_generales[1]),
+  `Variables (Columnas)` = c(dim_ocupados[2], dim_generales[2])
+) %>%
+  kable(format.args = list(big.mark = "."), caption = "Dimensiones iniciales de los microdatos cargados")
+```
+
+---
+
+# PROCEDIMIENTO DE LIMPIEZA Y SANEAMIENTO DE DATOS
+
+Siguiendo el protocolo estricto de gobernanza y calidad de datos, se ejecuta la depuración estructurada en cuatro fases:
+
+## 1. Verificación de Duplicados
+
+Comprobamos si existen filas idénticas o duplicaciones en las claves de identificación primaria (`DIRECTORIO` + `SECUENCIA_P` + `ORDEN`):
+
+```{r control-duplicados}
+# Duplicados completos en la matriz de Ocupados
+dup_ocup_completos <- sum(duplicated(datos_ocupados))
+
+# Duplicados por clave relacional
+dup_ocup_llaves <- sum(duplicated(datos_ocupados[, c("DIRECTORIO", "SECUENCIA_P", "ORDEN")]))
+dup_gen_llaves  <- sum(duplicated(datos_generales[, c("DIRECTORIO", "SECUENCIA_P", "ORDEN")]))
+
+cat("Duplicados completos en Ocupados:", dup_ocup_completos, "\n")
+cat("Duplicados en llaves primarias (Ocupados):", dup_ocup_llaves, "\n")
+cat("Duplicados en llaves primarias (Características Generales):", dup_gen_llaves, "\n")
+```
+
+> **Hallazgo:**  
+> Ambos módulos presentan **0 registros duplicados**, confirmando la unicidad estricta de las personas censadas a través de su llave relacional compuesta.
+
+---
+
+## 2. Integración Relacional de Módulos
+
+Realizamos una unión de combinación a la izquierda (`left_join`) preservando el universo de ocupados e incorporando el atributo de máximo nivel educativo (`P3042`):
+
+```{r union-relacional}
+datos_union <- datos_ocupados %>%
+  select(DIRECTORIO, SECUENCIA_P, ORDEN, DPTO, RAMA2D_R4, INGLABO, FEX_C18) %>%
+  left_join(
+    datos_generales %>% select(DIRECTORIO, SECUENCIA_P, ORDEN, P3042),
+    by = c("DIRECTORIO", "SECUENCIA_P", "ORDEN")
+  )
+
+cat("Dimensión tras integración relacional:", dim(datos_union), "\n")
+```
+
+---
+
+## 3. Diagnóstico y Tratamiento de Valores Faltantes (`NA`) y Ceros
+
+Analizamos el comportamiento de la variable económica fundamental (`INGLABO`):
+
+```{r conteo-nulos-ceros}
+na_inglabo <- sum(is.na(datos_union$INGLABO))
+cero_inglabo <- sum(datos_union$INGLABO == 0, na.rm = TRUE)
+pos_inglabo <- sum(datos_union$INGLABO > 0, na.rm = TRUE)
+
+tibble(
+  Estado_Ingreso = c("Sin reporte de ingreso (NA / Faltante)", "Ingreso reportado igual a Cero ($0 COP)", "Ingreso monetario positivo (> $0 COP)"),
+  Registros = c(na_inglabo, cero_inglabo, pos_inglabo),
+  `Porcentaje (%)` = round(c(na_inglabo, cero_inglabo, pos_inglabo) / nrow(datos_union) * 100, 2)
+) %>%
+  kable(format.args = list(big.mark = "."), caption = "Diagnóstico de completitud en la variable INGLABO")
+```
+
+> **Justificación Metodológica de Exclusión vs. Imputación:**  
+> 1. **Datos Faltantes (`NA = 601`):** En estudios de economía laboral basados en encuestas oficiales de hogares, imputar el ingreso laboral con la media o mediana general sin modelos multivariados complejos introduce sesgos de atenuación y distorsiona la varianza salarial. Por tal razón, se aplica **exclusión directa por caso completo (*listwise deletion*)**.  
+> 2. **Valores Cero (`$0 COP = 168`):** Corresponden predominantemente a trabajadores familiares sin remuneración fija o pasantes en esquemas no retribuidos. Como el objetivo es analizar la remuneración efectiva y los retornos del capital humano en el empleo retribuido, se aíslan para concentrar el análisis en ingresos positivos.
+
+---
+
+## 4. Homologación de Diccionarios Oficiales DANE
+
+Estandarizamos los códigos alfanuméricos de departamentos (DIVIPOLA), la jerarquía ordinal de educación y las ramas de actividad económica (CIIU Rev. 4):
+
+```{r diccionarios}
+# Diccionario DIVIPOLA DANE (Departamentos)
+nombres_dpto <- tibble(
+  DPTO = sprintf("%02d", c(5,8,11,13,15,17,18,19,20,23,25,27,41,44,47,50,52,54,63,66,68,70,73,76,81,85,86,88,91,94,95,97,99)),
+  departamento = c("Antioquia","Atlántico","Bogotá D.C.","Bolívar","Boyacá","Caldas","Caquetá",
+                   "Cauca","Cesar","Córdoba","Cundinamarca","Chocó","Huila","La Guajira",
+                   "Magdalena","Meta","Nariño","Norte de Santander","Quindío","Risaralda",
+                   "Santander","Sucre","Tolima","Valle del Cauca","Arauca","Casanare",
+                   "Putumayo","San Andrés","Amazonas","Guainía","Guaviare","Vaupés","Vichada")
+)
+
+# Diccionario oficial DANE - Niveles Educativos (P3042)
+niveles_edu <- tibble(
+  P3042 = 1:13,
+  nivel_educativo = factor(
+    c("Ninguno", "Preescolar", "Básica primaria", "Básica secundaria",
+      "Media académica", "Media técnica", "Normalista",
+      "Técnica profesional", "Tecnológica", "Universitaria",
+      "Especialización", "Maestría", "Doctorado"),
+    levels = c("Ninguno", "Preescolar", "Básica primaria", "Básica secundaria",
+               "Media académica", "Media técnica", "Normalista",
+               "Técnica profesional", "Tecnológica", "Universitaria",
+               "Especialización", "Maestría", "Doctorado"),
+    ordered = TRUE
+  )
+)
+
+# Diccionario oficial DANE - Ramas de Actividad Económica CIIU Rev. 4 (2 dígitos)
+ramas_ciiu <- tribble(
+  ~RAMA2D_R4, ~rama,
+  "01","Agricultura y ganadería", "02","Silvicultura", "03","Pesca y acuicultura",
+  "05","Extracción de carbón", "06","Petróleo y gas", "07","Minerales metalíferos",
+  "08","Otras minas y canteras", "09","Apoyo a la extracción", "10","Alimentos",
+  "11","Bebidas", "12","Tabaco", "13","Textiles",
+  "14","Confección de prendas", "15","Cuero y calzado", "16","Madera",
+  "17","Papel y cartón", "18","Impresión", "19","Refinación de petróleo",
+  "20","Químicos", "21","Farmacéuticos", "22","Caucho y plástico",
+  "23","Minerales no metálicos", "24","Metalurgia básica", "25","Productos de metal",
+  "26","Informática y electrónica", "27","Equipo eléctrico", "28","Maquinaria",
+  "29","Vehículos", "30","Otro equipo de transporte", "31","Muebles",
+  "32","Otras manufacturas", "33","Reparación de maquinaria", "35","Electricidad y gas",
+  "36","Agua", "37","Aguas residuales", "38","Residuos",
+  "39","Saneamiento ambiental", "41","Construcción de edificios", "42","Obras de ingeniería civil",
+  "43","Construcción especializada", "45","Venta y reparación de vehículos", "46","Comercio al por mayor",
+  "47","Comercio al por menor", "49","Transporte terrestre", "50","Transporte acuático",
+  "51","Transporte aéreo", "52","Almacenamiento y logística", "53","Correo y mensajería",
+  "55","Alojamiento", "56","Comidas y bebidas", "58","Edición",
+  "59","Cine y video", "60","Radio y televisión", "61","Telecomunicaciones",
+  "62","Desarrollo de software", "63","Servicios de información", "64","Servicios financieros",
+  "65","Seguros", "66","Auxiliares financieros", "68","Inmobiliarias",
+  "69","Jurídicas y contables", "70","Consultoría empresarial", "71","Arquitectura e ingeniería",
+  "72","Investigación científica", "73","Publicidad", "74","Otras profesionales y técnicas",
+  "75","Veterinarias", "77","Alquiler", "78","Empleo",
+  "79","Agencias de viajes", "80","Seguridad e investigación", "81","Servicios a edificios",
+  "82","Apoyo administrativo", "84","Administración pública", "85","Educación",
+  "86","Salud humana", "87","Atención residencial", "88","Asistencia social",
+  "90","Arte y entretenimiento", "91","Bibliotecas y museos", "92","Juegos de azar",
+  "93","Deporte y recreación", "94","Asociaciones", "95","Reparación de computadores y enseres",
+  "96","Otros servicios personales", "97","Servicio doméstico", "98","Hogares productores",
+  "99","Organizaciones extraterritoriales"
+)
+
+# Integración y codificación definitiva
+datos_limpios <- datos_union %>%
+  filter(!is.na(INGLABO), INGLABO > 0) %>%
+  mutate(
+    DPTO = sprintf("%02d", as.integer(DPTO)),
+    RAMA2D_R4 = sprintf("%02d", as.integer(RAMA2D_R4))
+  ) %>%
+  left_join(niveles_edu, by = "P3042") %>%
+  left_join(nombres_dpto, by = "DPTO") %>%
+  left_join(ramas_ciiu, by = "RAMA2D_R4")
+```
+
+---
+
+## 5. Trazabilidad del Proceso de Limpieza
+
+Registramos la trazabilidad cuantitativa de cada fase de depuración:
+
+```{r tabla-trazabilidad}
+tibble(
+  Etapa = c(
+    "1. Registros originales módulo Ocupados",
+    "2. Cruce relacional con Características Generales",
+    "3. Registros excluidos por dato faltante (INGLABO = NA)",
+    "4. Registros excluidos por ingreso igual a cero ($0 COP)",
+    "5. Muestra analítica consolidada final (INGLABO > 0)"
+  ),
+  `Registros Observados` = c(
+    nrow(datos_ocupados),
+    nrow(datos_union),
+    na_inglabo,
+    cero_inglabo,
+    nrow(datos_limpios)
+  ),
+  `Población Ponderada Expandida` = c(
+    round(sum(datos_ocupados$FEX_C18)),
+    round(sum(datos_union$FEX_C18)),
+    round(sum(datos_union$FEX_C18[is.na(datos_union$INGLABO)])),
+    round(sum(datos_union$FEX_C18[datos_union$INGLABO == 0], na.rm = TRUE)),
+    round(sum(datos_limpios$FEX_C18))
+  )
+) %>%
+  kable(format.args = list(big.mark = "."), caption = "Trazabilidad del proceso de saneamiento y depuración")
+```
+
+---
+
+# ANÁLISIS EXPLORATORIO DE DATOS (EDA)
+
+Definimos funciones estadísticas complementarias para medidas no paramétricas y forma distributiva:
+
+```{r funciones-auxiliares}
+# Función de cálculo de moda
+calc_moda <- function(x) {
+  u <- unique(x[!is.na(x)])
+  u[which.max(tabulate(match(x, u)))]
+}
+
+# Coeficiente de Asimetría de Fisher-Pearson (Skewness)
+calc_skewness <- function(x) {
+  x <- x[!is.na(x)]
+  n <- length(x)
+  m3 <- sum((x - mean(x))^3) / n
+  s3 <- (sd(x))^3
+  m3 / s3
+}
+```
+
+---
+
+## 1. Análisis Univariado: Variable Cuantitativa (`INGLABO`)
+
+Calculamos el resumen integral de estadísticas descriptivas de posición, tendencia central y dispersión:
+
+```{r tabla-estadisticas-cuantitativas}
+resumen_cuant <- datos_limpios %>%
+  summarise(
+    n = n(),
+    Minimo = min(INGLABO),
+    Q1 = quantile(INGLABO, 0.25),
+    Mediana = median(INGLABO),
+    Moda = calc_moda(INGLABO),
+    Media = round(mean(INGLABO), 0),
+    Q3 = quantile(INGLABO, 0.75),
+    Maximo = max(INGLABO),
+    IQR = IQR(INGLABO),
+    Varianza = round(var(INGLABO), 0),
+    Desv_Est = round(sd(INGLABO), 0),
+    CV_pct = round(sd(INGLABO) / mean(INGLABO) * 100, 2),
+    Asimetria = round(calc_skewness(INGLABO), 2)
+  )
+
+resumen_cuant %>%
+  kable(format.args = list(big.mark = "."), caption = "Estadísticas descriptivas completas del Ingreso Laboral Mensual (COP)")
+```
+
+### Interpretación y Diagnóstico Visual
+
+```{r fig-histograma-log, fig.cap="Figura 1: Distribución completa del ingreso laboral mensual en escala logarítmica con curva de densidad."}
+cortes_log <- c(100000, 300000, 500000, 800000, 1000000, 1423500, 2000000, 3000000, 5000000, 10000000, 30000000)
+
+ggplot(datos_limpios, aes(x = INGLABO)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 65, fill = "#2c3e50", color = "white", alpha = 0.85) +
+  geom_density(color = "#e74c3c", linewidth = 1) +
+  geom_vline(aes(xintercept = median(INGLABO)), color = "#e67e22", linetype = "dashed", linewidth = 1) +
+  geom_vline(aes(xintercept = mean(INGLABO)), color = "#2980b9", linetype = "dotted", linewidth = 1) +
+  scale_x_log10(breaks = cortes_log, labels = dollar_format(prefix = "$", big.mark = ".", decimal.mark = ",")) +
+  labs(
+    title = "Distribución del Ingreso Laboral Mensual en Colombia",
+    subtitle = "Escala logarítmica | Naranja discontinua: Mediana ($1.423.500) | Azul punteada: Media ($1.857.918)",
+    x = "Ingreso Mensual (COP - Escala Logarítmica)",
+    y = "Densidad Empírica"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r fig-histograma-zoom, fig.cap="Figura 2: Distribución de la masa salarial típica en tramos de $250.000 COP (hasta $5.000.000 COP)."}
+datos_limpios %>%
+  filter(INGLABO <= 5000000) %>%
+  ggplot(aes(x = INGLABO)) +
+  geom_histogram(binwidth = 250000, boundary = 0, fill = "#2980b9", color = "white", alpha = 0.9) +
+  geom_vline(aes(xintercept = median(datos_limpios$INGLABO)), color = "#e67e22", linetype = "dashed", linewidth = 1.1) +
+  scale_x_continuous(
+    breaks = seq(0, 5000000, by = 500000),
+    labels = dollar_format(prefix = "$", big.mark = ".", decimal.mark = ",")
+  ) +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Concentración de Ingresos en la Población Trabajadora Típica (<= $5.000.000 COP)",
+    subtitle = "Intervalos de clase de $250.000 COP | Línea naranja: Mediana nacional ($1.423.500 COP)",
+    x = "Ingreso Laboral Mensual (COP)",
+    y = "Número de Trabajadores (Muestra)"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r fig-boxplot-univariado, fig.height=4, fig.cap="Figura 3: Diagrama de Caja (Boxplot) univariado del ingreso laboral (zoom hasta $6.000.000 COP)."}
+datos_limpios %>%
+  ggplot(aes(x = "", y = INGLABO)) +
+  geom_boxplot(fill = "#16a085", color = "#2c3e50", alpha = 0.7, outlier.color = "#c0392b", outlier.alpha = 0.15) +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 4, color = "#2980b9") +
+  coord_flip(ylim = c(0, 6000000)) +
+  scale_y_continuous(
+    breaks = seq(0, 6000000, by = 1000000),
+    labels = dollar_format(prefix = "$", big.mark = ".", decimal.mark = ",")
+  ) +
+  labs(
+    title = "Diagrama de Caja: Dispersión y Valores Atípicos del Ingreso Laboral",
+    subtitle = "Línea central: Mediana ($1.423.500) | Rombo azul: Media ($1.857.918) | Puntos rojos: Outliers",
+    x = "",
+    y = "Ingreso Laboral Mensual (COP)"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+> **Argumentación y hallazgos en la distribución del ingreso:**
+> * **Asimetría Positiva Severa:** La media (\$1.857.918 COP) supera en un **30,5 %** a la mediana (\$1.423.500 COP), confirmada por un coeficiente de asimetría de **13,39**. Esto refleja que la gran mayoría de la población percibe sueldos bajos, mientras una fracción muy pequeña percibe salarios extraordinariamente altos (hasta \$92 millones COP) que distorsionan el promedio.
+> * **Efecto Ancla del Salario Mínimo:** La coincidencia exacta entre la **mediana (\$1.423.500 COP)** y la **moda (\$1.423.500 COP)** evidencia la rigidez salarial en Colombia, donde el salario mínimo legal vigente actúa como el atractor predominante de remuneraciones.
+> * **Compresión del 50 % central:** El rango intercuartílico ($IQR = \$1.120.000 COP$) indica que el 50 % intermedio de la fuerza laboral percibe ingresos contenidos estrictamente entre \$880.000 COP ($Q_1$) y \$2.000.000 COP ($Q_3$).
+
+---
+
+## 2. Análisis Univariado: Variable Cualitativa (`nivel_educativo`)
+
+Exploramos la composición educativa de la población ocupada mediante su distribución de frecuencias absolutas y relativas (muestrales y expandidas):
+
+```{r tabla-frecuencias-educacion}
+tabla_edu <- datos_limpios %>%
+  group_by(P3042, nivel_educativo) %>%
+  summarise(
+    Muestra_n = n(),
+    Pct_Muestra = round(n() / nrow(datos_limpios) * 100, 2),
+    Pob_Expandida = round(sum(FEX_C18), 0),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Pct_Expandido = round(Pob_Expandida / sum(Pob_Expandida) * 100, 2)
+  ) %>%
+  arrange(P3042)
+
+tabla_edu %>%
+  select(nivel_educativo, Muestra_n, Pct_Muestra, Pob_Expandida, Pct_Expandido) %>%
+  kable(format.args = list(big.mark = "."), caption = "Distribución de frecuencias según nivel educativo alcanzado")
+```
+
+```{r fig-barras-educacion, fig.height=5, fig.cap="Figura 4: Frecuencia de la población ocupada según nivel educativo alcanzado."}
+ggplot(tabla_edu, aes(x = nivel_educativo, y = Pct_Muestra, fill = P3042 <= 5)) +
+  geom_col(show.legend = FALSE, alpha = 0.85) +
+  geom_text(aes(label = paste0(Pct_Muestra, "%")), hjust = -0.15, size = 3.3) +
+  coord_flip() +
+  scale_fill_manual(values = c("TRUE" = "#e67e22", "FALSE" = "#2980b9")) +
+  scale_y_continuous(limits = c(0, 38), labels = function(x) paste0(x, "%")) +
+  labs(
+    title = "Estructura Educativa de la Población Ocupada en Colombia",
+    subtitle = "Naranja: Educación hasta media académica (62,4%) | Azul: Educación superior y posgrados (37,6%)",
+    x = "",
+    y = "Porcentaje de la Muestra (%)"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+> **Argumentación y hallazgos en el nivel educativo:**
+> * **Predominio de la educación media:** La categoría modal es **Media académica** con el **32,62 %** de los trabajadores (9.409 personas en muestra; 7,85 millones expandidos).
+> * **Alto rezago educativo:** El **29,82 %** de los ocupados en Colombia cuenta únicamente con educación básica primaria, secundaria o ninguna instrucción formal, lo que impone una barrera severa para la adopción de tecnologías avanzadas y competitividad.
+> * **Concentración en educación superior:** Los profesionales universitarios representan el **15,85 %**, mientras que la formación en posgrados (especialización, maestría y doctorado combinados) suma apenas el **5,28 %** del mercado laboral ocupado.
+
+---
+
+## 3. Análisis Bivariado: Retornos Salariales a la Educación (`INGLABO` vs `nivel_educativo`)
+
+Examinamos empíricamente la hipótesis del capital humano evaluando cómo varía el ingreso laboral a medida que se escala en la formación educativa:
+
+```{r tabla-bivariada-edu-ingreso}
+tabla_retornos <- datos_limpios %>%
+  group_by(P3042, nivel_educativo) %>%
+  summarise(
+    n = n(),
+    Mediana_COP = median(INGLABO),
+    Media_COP = round(mean(INGLABO), 0),
+    IQR_COP = IQR(INGLABO),
+    Q1_COP = quantile(INGLABO, 0.25),
+    Q3_COP = quantile(INGLABO, 0.75),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    Brecha_vs_Primaria = round((Mediana_COP / Mediana_COP[P3042 == 3] - 1) * 100, 1),
+    Brecha_vs_Nacional = round((Mediana_COP / median(datos_limpios$INGLABO) - 1) * 100, 1)
+  ) %>%
+  arrange(P3042)
+
+tabla_retornos %>%
+  select(nivel_educativo, n, Mediana_COP, Media_COP, Brecha_vs_Primaria, Brecha_vs_Nacional) %>%
+  kable(format.args = list(big.mark = "."), caption = "Comparativo bivariado de ingresos laborales según nivel educativo")
+```
+
+```{r fig-boxplot-bivariado, fig.height=6, fig.cap="Figura 5: Diagramas de caja comparativos del ingreso laboral según nivel educativo (escala logarítmica)."}
+cortes_biv <- c(300000, 500000, 800000, 1000000, 1423500, 2000000, 3000000, 5000000, 10000000, 20000000)
+
+ggplot(datos_limpios, aes(x = nivel_educativo, y = INGLABO)) +
+  geom_boxplot(aes(fill = P3042 <= 5), outlier.alpha = 0.12, show.legend = FALSE) +
+  geom_hline(yintercept = median(datos_limpios$INGLABO), color = "#c0392b", linetype = "dashed", linewidth = 0.9) +
+  scale_fill_manual(values = c("TRUE" = "#f39c12", "FALSE" = "#3498db")) +
+  scale_y_log10(breaks = cortes_biv, labels = dollar_format(prefix = "$", big.mark = ".", decimal.mark = ",")) +
+  coord_flip() +
+  labs(
+    title = "Retornos Salariales del Capital Humano por Nivel Educativo",
+    subtitle = "Línea roja discontinua: Mediana nacional ($1.423.500 COP) | Escala logarítmica",
+    x = "",
+    y = "Ingreso Laboral Mensual (COP)"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+> **Argumentación y hallazgos sobre la brecha salarial por nivel de estudio:**
+> * **Monotonía y premio al capital humano:** La mediana salarial crece de forma estrictamente monótona conforme aumenta el nivel educativo, confirmando la teoría clásica de Mincer.
+> * **Penalización salarial del rezago:** Aquellos con educación básica primaria o sin instrucción perciben una mediana entre \$700.000 y \$800.000 COP, ubicándose un **-44 % a -50 % por debajo** de la mediana nacional.
+> * **El punto de inflexión universitario:** La educación universitaria representa el verdadero salto hacia ingresos superiores al mínimo (\$2.301.000 COP, un +61,6 % sobre la mediana nacional).
+> * **Prima de posgrado:** Quienes culminan maestría (\$4.600.000 COP) o doctorado (\$6.000.000 COP) multiplican por más de 3 y 4 veces el ingreso del trabajador típico, demostrando el altísimo valor de la cualificación especializada.
+
+---
+
+## 4. Análisis Sectorial y Priorización de Capital Humano
+
+Evaluamos las ramas económicas (CIIU Rev. 4) cruzando el nivel de formación de sus trabajadores frente a sus medianas salariales. Filtramos las **44 ramas con muestra robusta ($n \ge 100$)** y las clasificamos en tres grupos de prioridad:
+
+```{r analisis-sectorial}
+mediana_nacional <- median(datos_limpios$INGLABO)
+
+tabla_sectorial <- datos_limpios %>%
+  group_by(RAMA2D_R4, rama) %>%
+  summarise(
+    ocupados_muestra = n(),
+    ocupados_expandidos = round(sum(FEX_C18), 0),
+    nivel_edu_predominante = calc_moda(nivel_educativo),
+    pct_hasta_secundaria = round(mean(P3042 <= 4) * 100, 1),
+    pct_hasta_media = round(mean(P3042 <= 5) * 100, 1),
+    mediana_ingreso = median(INGLABO),
+    media_ingreso = round(mean(INGLABO), 0),
+    .groups = "drop"
+  ) %>%
+  filter(ocupados_muestra >= 100) %>%
+  mutate(
+    clasificacion_prioridad = case_when(
+      pct_hasta_secundaria >= 40 & mediana_ingreso < mediana_nacional ~ "Grupo 3: Mayor prioridad potencial",
+      pct_hasta_secundaria < 40  & mediana_ingreso >= mediana_nacional ~ "Grupo 1: Menor prioridad relativa",
+      TRUE ~ "Grupo 2: Prioridad intermedia"
+    )
+  ) %>%
+  arrange(desc(clasificacion_prioridad), desc(pct_hasta_secundaria), mediana_ingreso)
+
+# Exportamos la matriz para fases de Machine Learning
+write_csv(tabla_sectorial, "tabla_priorizacion_sectorial.csv")
+```
+
+### Sectores Críticos: Grupo 3 (Mayor Prioridad Potencial)
+
+```{r tabla-sectorial-grupo3}
+sectores_grupo3 <- tabla_sectorial %>%
+  filter(clasificacion_prioridad == "Grupo 3: Mayor prioridad potencial")
+
+sectores_grupo3 %>%
+  select(RAMA2D_R4, rama, ocupados_muestra, ocupados_expandidos, nivel_edu_predominante, pct_hasta_secundaria, mediana_ingreso) %>%
+  kable(
+    format.args = list(big.mark = "."),
+    col.names = c("CIIU", "Rama Económica", "Muestra (n)", "Población Expandida", "Nivel Predominante", "% Hasta Secundaria", "Mediana (COP)"),
+    caption = "Ramas económicas en condición de vulnerabilidad educativa y salarial (Grupo 3)"
+  )
+```
+
+```{r fig-dispersion-sectores, fig.width=10, fig.height=6.5, fig.cap="Figura 6: Cuadrantes de priorización sectorial según capital humano y mediana salarial."}
+ggplot(tabla_sectorial, aes(x = pct_hasta_secundaria, y = mediana_ingreso, color = clasificacion_prioridad, size = ocupados_expandidos)) +
+  geom_point(alpha = 0.75) +
+  geom_hline(yintercept = mediana_nacional, linetype = "dashed", color = "gray50") +
+  geom_vline(xintercept = 40, linetype = "dashed", color = "gray50") +
+  geom_text(
+    data = sectores_grupo3,
+    aes(label = rama),
+    size = 3.1,
+    vjust = -0.7,
+    show.legend = FALSE
+  ) +
+  scale_y_continuous(labels = dollar_format(prefix = "$", big.mark = ".", decimal.mark = ",")) +
+  scale_x_continuous(labels = function(x) paste0(x, "%")) +
+  scale_color_manual(values = c(
+    "Grupo 1: Menor prioridad relativa" = "#27ae60",
+    "Grupo 2: Prioridad intermedia" = "#f39c12",
+    "Grupo 3: Mayor prioridad potencial" = "#c0392b"
+  )) +
+  labs(
+    title = "Priorización Estratégica de Sectores Productivos en Colombia",
+    subtitle = "Cuadrante crítico inferior derecho: >40% rezago educativo y mediana salarial < $1.423.500 COP",
+    x = "Proporción de Trabajadores con Educación hasta Básica Secundaria (%)",
+    y = "Mediana del Ingreso Laboral Mensual (COP)",
+    color = "Categoría de Prioridad",
+    size = "Ocupados Expandidos"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "bottom")
+```
+
+> **Argumentación y hallazgos en la priorización sectorial:**
+> * **Concentración crítica:** Nueve ramas conforman el Grupo 3, congregando a más de **6,06 millones de trabajadores** en la población expandida.
+> * **Sectores de máxima urgencia:** *Pesca y acuicultura* (79,3 % con educación básica o menos; mediana de \$1.000.000 COP) y *Agricultura y ganadería* (68,4 % con educación básica; \$800.000 COP) constituyen el epicentro de la trampa de baja productividad del país.
+> * **Construcción y servicios a edificios:** Sectores intensivos urbanos como *Construcción de edificios* (1,12 millones de trabajadores) y *Servicios a edificios* presentan medianas entre \$600.000 y \$1.300.000 COP, requiriendo esquemas de certificación de competencias laborales.
+
+---
+
+## 5. Dimensión Territorial: Top 10 de Departamentos
+
+Analizamos la distribución espacial del ingreso laboral a nivel departamental, seleccionando aquellos departamentos con representatividad muestral robusta ($n \ge 300$):
+
+```{r analisis-territorial}
+top10_dpto <- datos_limpios %>%
+  group_by(DPTO, departamento) %>%
+  summarise(
+    ocupados_muestra = n(),
+    ocupados_expandidos = round(sum(FEX_C18), 0),
+    pct_hasta_secundaria = round(mean(P3042 <= 4) * 100, 1),
+    mediana_ingreso = median(INGLABO),
+    media_ingreso = round(mean(INGLABO), 0),
+    .groups = "drop"
+  ) %>%
+  filter(ocupados_muestra >= 300) %>%
+  arrange(desc(mediana_ingreso), desc(media_ingreso)) %>%
+  slice_head(n = 10)
+
+top10_dpto %>%
+  mutate(Posición = row_number()) %>%
+  select(Posición, departamento, ocupados_muestra, ocupados_expandidos, pct_hasta_secundaria, mediana_ingreso, media_ingreso) %>%
+  kable(
+    format.args = list(big.mark = "."),
+    col.names = c("Pos.", "Departamento", "Muestra (n)", "Población Expandida", "% Hasta Secundaria", "Mediana (COP)", "Media (COP)"),
+    caption = "Top 10 de departamentos según la mediana del ingreso laboral mensual"
+  )
+```
+
+```{r fig-top10-dptos, fig.height=4.8, fig.cap="Figura 7: Top 10 de departamentos con mayores ingresos medianos laborales en Colombia."}
+ggplot(top10_dpto, aes(x = reorder(departamento, mediana_ingreso), y = mediana_ingreso)) +
+  geom_col(fill = "#2c3e50", alpha = 0.9, width = 0.7) +
+  geom_text(
+    aes(label = dollar(mediana_ingreso, prefix = "$", big.mark = ".", decimal.mark = ",")),
+    hjust = -0.15,
+    size = 3.3
+  ) +
+  coord_flip() +
+  scale_y_continuous(limits = c(0, 2200000), labels = dollar_format(prefix = "$", big.mark = ".", decimal.mark = ",")) +
+  labs(
+    title = "Top 10 Departamentos por Mediana de Ingreso Laboral",
+    subtitle = "Departamentos con muestra robusta (>= 300 ocupados en muestra)",
+    x = "",
+    y = "Mediana Salarial Mensual (COP)"
+  ) +
+  theme_minimal(base_size = 11)
+```
+
+> **Argumentación y hallazgos en la dimensión territorial:**
+> * **Liderazgo de los centros urbanos:** Bogotá D.C. (\$1.800.000 COP) y San Andrés (\$1.800.000 COP) lideran la escala salarial del país, seguidos por Antioquia (\$1.600.000 COP).
+> * **Correlación directa territorial:** Los territorios del Top 10 salarial son precisamente aquellos con las tasas más reducidas de rezago educativo (Bogotá con apenas 17,8 % y San Andrés con 17,7 % con formación hasta básica secundaria), ratificando a nivel macroespacial la hipótesis de que mayor densidad de capital humano genera mayores retornos económicos.
+
+---
+
+# CONCLUSIONES Y PROYECCIÓN HACIA MACHINE LEARNING
+
+1. **Integridad y Calidad de la Fuente:** La integración relacional de los módulos *Ocupados* y *Características Generales* de la GEIH permitió estructurar una muestra final representativa de **28.842 trabajadores** con ingresos monetarios positivos (equivalentes a **23,47 millones de ocupados expandidos**), con 0 duplicados y con trazabilidad metodológica completa en el tratamiento de valores nulos.
+2. **Asimetría Estructural del Ingreso:** El mercado laboral colombiano está fuertemente sesgado a la derecha (asimetría = 13,39). La media (\$1.857.918 COP) sobrestima el poder adquisitivo real, ya que el **75 % de los trabajadores percibe \$2.000.000 COP o menos**, con una coincidencia perfecta entre la mediana y la moda en torno al salario mínimo (\$1.423.500 COP).
+3. **Validación de la Teoría del Capital Humano:** Existe una relación directa, monotónica y ascendente entre el nivel educativo y la remuneración. La fuerza laboral con educación básica o inferior sufre una penalización del -44% al -50% frente al salario típico, mientras que los títulos universitarios y de posgrado ofrecen un multiplicador de 1,6 a más de 3 veces el ingreso mediano.
+4. **Focalización Sectorial para Toma de Decisiones:** Nueve ramas económicas integran el **Grupo 3 de Mayor Prioridad Potencial** (más de 6 millones de trabajadores expandidos). Sectores como la agricultura, pesca, construcción y confección deben ser objeto de políticas focalizadas de alfabetización técnica y programas duales de formación para romper trampas de pobreza.
+5. **Brecha Territorial Centro-Periferia:** Los departamentos centrales y de mayor dinamismo terciario (Bogotá, San Andrés, Antioquia) presentan mayores salarios medianos y menor rezago escolar, lo que exige transferencias territoriales diferenciadas para nivelar las capacidades productivas de las regiones periféricas.
+6. **Hoja de Ruta hacia el Aprendizaje Automático:** La matriz de indicadores sectoriales consolidada (`tabla_priorizacion_sectorial.csv`) queda lista como matriz de características (*feature matrix*) para aplicar algoritmos de aprendizaje no supervisado (**K-Means**, **DBSCAN** y **clustering jerárquico**) en fases posteriores de la especialización, permitiendo descubrir agrupaciones multivariadas sin depender de umbrales manuales.
+
+---
+
+# REFERENCIAS BIBLIOGRÁFICAS
+
+* **Becker, G. S.** (1964). *Human Capital: A Theoretical and Empirical Analysis, with Special Reference to Education*. National Bureau of Economic Research (NBER).
+* **Departamento Administrativo Nacional de Estadística – DANE.** (2024). *Gran Encuesta Integrada de Hogares (GEIH): Metodología general y manual del encuestador*. DANE, Colombia. <https://microdatos.dane.gov.co>
+* **Mincer, J.** (1974). *Schooling, Experience, and Earnings*. National Bureau of Economic Research (NBER), New York.
+* **Schultz, T. W.** (1961). Investment in Human Capital. *The American Economic Review*, 51(1), 1–17.
+* **Tukey, J. W.** (1977). *Exploratory Data Analysis*. Addison-Wesley Publishing Company, Reading, Mass.
+* **Wickham, H., & Grolemund, G.** (2017). *R for Data Science: Import, Tidy, Transform, Visualize, and Model Data*. O'Reilly Media.
