@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entrega Oficial - Tarea I: Análisis Exploratorio de Datos (EDA) - GEIH DANE</title>
+  <title>Tarea I: Análisis Exploratorio de Datos (EDA) - Normas APA 7</title>
   <style>
-    /* RESET & VARIABLES GLOBALES */
+    /* RESET & ESTILO GENERAL EN NORMAS APA 7 */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -13,483 +13,308 @@
     }
 
     :root {
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --font-body: Georgia, "Times New Roman", Times, serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-mono: Consolas, "Courier New", monospace;
       
-      --color-text-main: #0f172a;
-      --color-text-muted: #475569;
-      --color-text-light: #64748b;
-      
-      --color-heading: #0f172a;
-      --color-navy: #1e3a8a;
-      --color-primary: #1d4ed8;
-      --color-emerald: #047857;
-      --color-amber: #b45309;
-      --color-rose: #be123c;
-      
-      --color-bg-page: #f8fafc;
-      --color-surface: #ffffff;
-      --color-surface-subtle: #f8fafc;
-      --color-surface-muted: #f1f5f9;
-      
-      --color-border: #e2e8f0;
-      --color-border-hover: #cbd5e1;
-      --color-border-strong: #94a3b8;
+      --color-text: #1a1a1a;
+      --color-muted: #4a4a4a;
+      --color-link: #0d47a1;
+      --color-border-dark: #222222;
+      --color-border-light: #cccccc;
     }
 
     body {
-      font-family: var(--font-sans);
-      background-color: var(--color-bg-page);
-      color: var(--color-text-main);
-      line-height: 1.5;
+      font-family: var(--font-body);
+      background-color: #f4f5f7;
+      color: var(--color-text);
+      line-height: 1.45;
       font-size: 9.5pt;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ESTILOS DE PÁGINA Y DOCUMENTO */
+    /* CONTENEDOR PRINCIPAL DEL DOCUMENTO */
     .document-wrapper {
-      max-width: 860px;
-      margin: 1.5rem auto;
-      background: var(--color-surface);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      border: 1px solid var(--color-border);
+      max-width: 820px;
+      margin: 2rem auto;
+      background: #ffffff;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e0e0e0;
     }
 
     .doc-page {
-      padding: 2.2rem 2.5rem;
+      padding: 2.5rem 3rem 2rem 3rem;
+      min-height: 1040px;
       position: relative;
     }
 
     .page-break {
       page-break-after: always;
       break-after: page;
-      border-bottom: 2px dashed var(--color-border);
+      border-bottom: 1px solid #e0e0e0;
     }
 
-    /* TIPOGRAFÍA */
-    h1, h2, h3, h4 {
-      color: var(--color-heading);
-      font-weight: 700;
-      line-height: 1.25;
+    /* ENCABEZADO APA 7 (NÚMERO DE PÁGINA SUPERIOR DERECHA) */
+    .apa-header {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 9pt;
+      color: var(--color-muted);
+      margin-bottom: 1.5rem;
+      font-variant-numeric: tabular-nums;
     }
 
-    h1 { font-size: 1.55rem; margin-bottom: 0.4rem; }
-    h2 { font-size: 1.15rem; margin-top: 1rem; margin-bottom: 0.45rem; border-bottom: 1.5px solid var(--color-border); padding-bottom: 0.25rem; }
-    h3 { font-size: 0.98rem; margin-top: 0.75rem; margin-bottom: 0.35rem; color: var(--color-navy); }
-    h4 { font-size: 0.9rem; margin-top: 0.6rem; margin-bottom: 0.25rem; }
+    /* PORTADA PARA ESTUDIANTES (NORMAS APA 7) */
+    .cover-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      text-align: center;
+      padding-top: 3.5rem;
+    }
 
-    p {
-      margin-bottom: 0.5rem;
-      color: var(--color-text-main);
+    .cover-title {
+      font-size: 1.55rem;
+      font-weight: bold;
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+      color: #000000;
+      padding: 0 1rem;
+    }
+
+    .cover-subtitle {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--color-muted);
+      margin-bottom: 3.5rem;
+    }
+
+    .cover-metadata {
+      font-size: 10.5pt;
+      line-height: 1.9;
+      color: var(--color-text);
+      margin-bottom: 4rem;
+    }
+
+    .cover-metadata .student-names {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .cover-author-note {
+      margin-top: auto;
+      text-align: left;
+      border-top: 1px solid var(--color-border-light);
+      padding-top: 1.25rem;
+      font-size: 9pt;
+      line-height: 1.5;
+    }
+
+    .cover-author-note-title {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 0.6rem;
+      font-size: 9.5pt;
+    }
+
+    .cover-author-note p {
+      margin-bottom: 0.4rem;
       text-align: justify;
     }
 
-    p.lead {
-      font-size: 0.95rem;
-      line-height: 1.45;
-      color: var(--color-text-muted);
+    .cover-author-note a {
+      color: var(--color-link);
+      text-decoration: underline;
+      word-break: break-all;
     }
 
-    strong {
-      font-weight: 600;
-      color: var(--color-text-main);
+    /* TIPOGRAFÍA DE NIVELES DE ENCABEZADO APA 7 */
+    /* Nivel 1: Centrado, Negrita, Mayúsculas y Minúsculas */
+    h1.apa-h1 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 0.5rem;
+      margin-bottom: 0.9rem;
+      color: #000000;
+    }
+
+    /* Nivel 2: Alineado a la izquierda, Negrita */
+    h2.apa-h2 {
+      font-size: 1.05rem;
+      font-weight: bold;
+      text-align: left;
+      margin-top: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: #000000;
+    }
+
+    /* Nivel 3: Alineado a la izquierda, Negrita y Cursiva */
+    h3.apa-h3 {
+      font-size: 0.95rem;
+      font-weight: bold;
+      font-style: italic;
+      text-align: left;
+      margin-top: 0.85rem;
+      margin-bottom: 0.35rem;
+      color: #000000;
+    }
+
+    p {
+      margin-bottom: 0.65rem;
+      text-align: justify;
+      color: var(--color-text);
+      line-height: 1.5;
     }
 
     code {
       font-family: var(--font-mono);
-      font-size: 8pt;
-      background-color: var(--color-surface-muted);
-      padding: 0.12rem 0.3rem;
-      border-radius: 4px;
-      color: var(--color-text-main);
-    }
-
-    /* ENCABEZADOS Y PIES DE PÁGINA */
-    .page-header-mini {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 7.5pt;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-text-light);
-      border-bottom: 1px solid var(--color-border);
-      padding-bottom: 0.3rem;
-      margin-bottom: 1rem;
-    }
-
-    .page-footer-mini {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 7.5pt;
-      color: var(--color-text-light);
-      border-top: 1px solid var(--color-border);
-      padding-top: 0.35rem;
-      margin-top: 1.2rem;
-    }
-
-    /* PORTADA ESTILO ACADÉMICO / EJECUTIVO */
-    .cover-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      text-align: center;
-      padding: 1.5rem 1rem 0.5rem 1rem;
-    }
-
-    .cover-institution {
-      margin-top: 0.5rem;
-    }
-
-    .institution-tag {
-      display: inline-block;
-      font-size: 8pt;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-navy);
-      background-color: var(--color-surface-muted);
-      padding: 0.35rem 0.9rem;
-      border-radius: 9999px;
-      margin-bottom: 0.6rem;
-    }
-
-    .institution-name {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--color-heading);
-      letter-spacing: -0.01em;
-      margin-bottom: 0.2rem;
-      text-transform: uppercase;
-    }
-
-    .faculty-name {
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: var(--color-text-muted);
-    }
-
-    .cover-title-box {
-      margin: 2rem 0;
-      padding: 1.75rem 1.25rem;
-      background-color: var(--color-surface-subtle);
-      border: 1px solid var(--color-border);
-      border-radius: 10px;
-    }
-
-    .task-badge {
-      display: inline-block;
       font-size: 8.5pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--color-primary);
-      margin-bottom: 0.5rem;
+      background-color: #f5f5f5;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
     }
 
-    .project-main-title {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--color-heading);
-      line-height: 1.25;
-      margin-bottom: 0.75rem;
+    ol.apa-list, ul.apa-list {
+      margin: 0.4rem 0 0.8rem 1.8rem;
     }
 
-    .project-subtitle {
-      font-size: 0.95rem;
-      font-weight: 400;
-      color: var(--color-text-muted);
-      max-width: 620px;
-      margin: 0 auto;
-      line-height: 1.45;
+    ol.apa-list li, ul.apa-list li {
+      margin-bottom: 0.35rem;
+      text-align: justify;
     }
 
-    .cover-metadata {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-      text-align: left;
-      margin: 1.5rem 0;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 8px;
-      padding: 1rem 1.4rem;
-    }
-
-    .meta-group-title {
-      font-size: 7.5pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--color-text-light);
-      margin-bottom: 0.3rem;
-    }
-
-    .meta-item-person {
-      font-size: 9pt;
-      font-weight: 600;
-      color: var(--color-text-main);
-      margin-bottom: 0.15rem;
-    }
-
-    .meta-item-sub {
-      font-size: 8pt;
-      color: var(--color-text-muted);
-    }
-
-    .cover-quick-links {
-      background-color: var(--color-surface-muted);
-      border: 1px solid var(--color-border);
-      border-radius: 8px;
-      padding: 0.9rem 1.1rem;
-      margin-bottom: 1rem;
-      text-align: left;
-    }
-
-    .quick-links-title {
-      font-size: 8pt;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-navy);
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .quick-links-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-    }
-
-    .link-card-mini {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 6px;
-      padding: 0.5rem 0.75rem;
-      text-decoration: none;
-      display: block;
-      transition: border-color 0.15s ease;
-    }
-
-    .link-card-mini:hover {
-      border-color: var(--color-border-hover);
-    }
-
-    .link-card-label {
-      font-size: 7pt;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--color-text-light);
-      margin-bottom: 0.1rem;
-    }
-
-    .link-card-url {
-      font-size: 8pt;
-      font-weight: 600;
-      color: var(--color-primary);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .cover-date-footer {
-      font-size: 8.5pt;
-      font-weight: 500;
-      color: var(--color-text-light);
-      margin-top: 0.4rem;
-    }
-
-    /* TARJETAS Y BLOQUES DE INFORMACIÓN */
-    .card-box {
-      background-color: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1rem;
-    }
-
-    .card-box-accent {
-      background-color: var(--color-surface-subtle);
-      border: 1px solid var(--color-border);
-      border-left: 4px solid var(--color-navy);
-      border-radius: 4px 8px 8px 4px;
-      padding: 0.9rem 1.25rem;
-      margin-bottom: 1rem;
-    }
-
-    .badge-status {
-      display: inline-block;
-      font-size: 7.5pt;
-      font-weight: 700;
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      background-color: var(--color-surface-muted);
-      border: 1px solid var(--color-border);
-      color: var(--color-emerald);
-    }
-
-    /* BOTONES INTERACTIVOS */
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      margin: 0.8rem 0 1.2rem 0;
-    }
-
-    .btn-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 8.5pt;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 0.55rem 0.95rem;
-      border-radius: 6px;
-      background-color: var(--color-surface-muted);
-      color: var(--color-text-main);
-      border: 1px solid var(--color-border);
-      transition: background-color 0.15s ease, border-color 0.15s ease;
-    }
-
-    .btn-action:hover {
-      background-color: #e2e8f0;
-      border-color: var(--color-border-hover);
-    }
-
-    .btn-action-primary {
-      background-color: var(--color-navy);
-      color: #ffffff;
-      border: 1px solid var(--color-navy);
-    }
-
-    .btn-action-primary:hover {
-      background-color: #172554;
-      border-color: #172554;
-      color: #ffffff;
-    }
-
-    /* TABLAS ESTILO FORMAL / ACADÉMICO */
+    /* TABLAS EN FORMATO APA 7 ESTRICTO (SIN LÍNEAS VERTICALES) */
     .table-container {
-      margin: 0.8rem 0 1.2rem 0;
-      overflow-x: auto;
+      margin: 0.9rem 0 1.2rem 0;
     }
 
-    table.data-table {
+    .table-label {
+      font-size: 9pt;
+      font-weight: bold;
+      margin-bottom: 0.15rem;
+      text-align: left;
+    }
+
+    .table-title {
+      font-size: 9pt;
+      font-style: italic;
+      margin-bottom: 0.4rem;
+      text-align: left;
+    }
+
+    table.apa-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 8.5pt;
+      font-family: var(--font-body);
       text-align: left;
     }
 
-    table.data-table th {
-      background-color: var(--color-surface-muted);
-      color: var(--color-text-main);
-      font-weight: 700;
-      padding: 0.55rem 0.75rem;
-      border: 1px solid var(--color-border);
-      text-transform: uppercase;
-      font-size: 7.5pt;
-      letter-spacing: 0.04em;
+    table.apa-table th {
+      border-top: 1.5px solid var(--color-border-dark);
+      border-bottom: 1px solid var(--color-border-dark);
+      padding: 5px 8px;
+      font-weight: bold;
+      vertical-align: bottom;
+      background: none;
+      color: #000000;
     }
 
-    table.data-table td {
-      padding: 0.5rem 0.75rem;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-main);
-      vertical-align: middle;
+    table.apa-table td {
+      border: none;
+      padding: 4.5px 8px;
+      vertical-align: top;
+      color: var(--color-text);
     }
 
-    table.data-table tr:nth-child(even) {
-      background-color: var(--color-surface-subtle);
+    table.apa-table tbody tr:last-child td {
+      border-bottom: 1.5px solid var(--color-border-dark);
     }
 
-    table.data-table td.num {
+    table.apa-table td.num, table.apa-table th.num {
       text-align: right;
       font-variant-numeric: tabular-nums;
-      font-weight: 500;
     }
 
-    table.data-table th.num {
-      text-align: right;
-    }
-
-    /* GRID DE MÉTRICAS */
-    .metrics-grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-      margin: 0.8rem 0 1rem 0;
-    }
-
-    .metric-card {
-      background-color: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 6px;
-      padding: 0.75rem 0.85rem;
-      text-align: center;
-    }
-
-    .metric-card-label {
-      font-size: 7.5pt;
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--color-text-light);
-      margin-bottom: 0.25rem;
-    }
-
-    .metric-card-value {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--color-heading);
-      letter-spacing: -0.02em;
-    }
-
-    .metric-card-sub {
-      font-size: 7pt;
-      color: var(--color-text-muted);
-      margin-top: 0.15rem;
-    }
-
-    /* LISTAS ESTRUCTURADAS */
-    ol.obj-list, ul.feature-list {
-      margin: 0.4rem 0 0.8rem 1.2rem;
-      color: var(--color-text-main);
-    }
-
-    ol.obj-list li, ul.feature-list li {
-      margin-bottom: 0.35rem;
-      padding-left: 0.25rem;
-    }
-
-    /* CUADRO DE AUTOEVALUACIÓN / RÚBRICA */
-    .rubric-score-badge {
-      display: inline-block;
+    .table-note {
       font-size: 8pt;
-      font-weight: 700;
-      color: var(--color-emerald);
-      background-color: var(--color-surface-muted);
-      border: 1px solid var(--color-border);
-      padding: 0.15rem 0.45rem;
-      border-radius: 4px;
+      color: var(--color-muted);
+      margin-top: 0.35rem;
+      text-align: justify;
     }
 
-    /* OPTIMIZACIÓN DE IMPRESIÓN Y CONVERSIÓN A PDF */
+    .table-note strong {
+      font-style: italic;
+    }
+
+    /* REFERENCIAS EN FORMATO APA 7 (SANGRÍA FRANCESA) */
+    .apa-references {
+      margin-top: 1rem;
+    }
+
+    p.apa-ref {
+      padding-left: 1.8em;
+      text-indent: -1.8em;
+      margin-bottom: 0.45rem;
+      font-size: 8.5pt;
+      text-align: justify;
+    }
+
+    /* BARRA FLOTANTE DE NAVEGACIÓN (NO IMPRIMIBLE) */
+    .floating-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #ffffff;
+      border-bottom: 1px solid #d0d0d0;
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 820px;
+      margin: 0 auto;
+      font-family: var(--font-sans);
+    }
+
+    .floating-bar-info {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #222222;
+    }
+
+    .floating-bar-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .floating-btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 8pt;
+      font-weight: 600;
+      border-radius: 4px;
+      border: 1px solid #b0b0b0;
+      background-color: #f7f7f7;
+      color: #222222;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .floating-btn-primary {
+      background-color: #1a365d;
+      color: #ffffff;
+      border-color: #1a365d;
+    }
+
+    /* CONFIGURACIÓN DE IMPRESIÓN Y CONVERSIÓN A PDF */
     @page {
       size: letter;
-      margin: 10mm 14mm 10mm 14mm;
+      margin: 12mm 18mm 12mm 18mm;
     }
 
     @media print {
-      html, body {
-        background-color: #ffffff !important;
+      body {
+        background: #ffffff !important;
         font-size: 8pt !important;
         line-height: 1.35 !important;
       }
@@ -512,138 +337,127 @@
 
       .page-break {
         border-bottom: none !important;
-        margin: 0 !important;
       }
 
       .no-print {
         display: none !important;
       }
 
-      .cover-container {
-        min-height: auto !important;
-        padding-top: 1.2rem !important;
+      .apa-header {
+        margin-bottom: 0.6rem !important;
+        font-size: 8pt !important;
       }
 
-      .cover-title-box {
-        margin: 1.2rem 0 !important;
-        padding: 1.2rem 1rem !important;
+      .cover-page {
+        padding-top: 2rem !important;
+      }
+
+      .cover-title {
+        font-size: 1.35rem !important;
+        margin-bottom: 0.5rem !important;
+      }
+
+      .cover-subtitle {
+        margin-bottom: 2rem !important;
+        font-size: 1rem !important;
       }
 
       .cover-metadata {
-        margin: 1rem 0 !important;
-        padding: 0.8rem 1.2rem !important;
+        margin-bottom: 2.5rem !important;
+        line-height: 1.7 !important;
+        font-size: 9.5pt !important;
       }
 
-      .page-footer-mini {
-        position: static !important;
-        margin-top: 0.8rem !important;
+      .cover-author-note {
+        padding-top: 1rem !important;
+        font-size: 8pt !important;
       }
 
-      h1 { font-size: 1.4rem !important; }
-      h2 { font-size: 1.05rem !important; margin-top: 0.75rem !important; margin-bottom: 0.3rem !important; }
-      h3 { font-size: 0.9rem !important; margin-top: 0.55rem !important; margin-bottom: 0.25rem !important; }
-      p { margin-bottom: 0.35rem !important; }
+      h1.apa-h1 {
+        font-size: 1.1rem !important;
+        margin-top: 0 !important;
+        margin-bottom: 0.45rem !important;
+      }
 
-      table.data-table {
+      h2.apa-h2 {
+        font-size: 0.98rem !important;
+        margin-top: 0.55rem !important;
+        margin-bottom: 0.3rem !important;
+      }
+
+      h3.apa-h3 {
+        font-size: 0.9rem !important;
+        margin-top: 0.4rem !important;
+        margin-bottom: 0.2rem !important;
+      }
+
+      p {
+        margin-bottom: 0.32rem !important;
+      }
+
+      .table-container {
+        margin: 0.35rem 0 0.55rem 0 !important;
+      }
+
+      table.apa-table {
         font-size: 7.5pt !important;
       }
-      table.data-table th, table.data-table td {
-        padding: 0.32rem 0.5rem !important;
+
+      table.apa-table th, table.apa-table td {
+        padding: 3px 6px !important;
       }
 
-      .card-box, .card-box-accent {
-        padding: 0.6rem 0.85rem !important;
-        margin-bottom: 0.55rem !important;
+      .table-label {
+        font-size: 8pt !important;
+        margin-bottom: 0 !important;
       }
 
-      .metrics-grid-4 {
-        margin: 0.5rem 0 0.65rem 0 !important;
-        gap: 0.5rem !important;
+      .table-title {
+        font-size: 8pt !important;
+        margin-bottom: 0.15rem !important;
       }
 
-      .metric-card {
-        padding: 0.45rem 0.55rem !important;
+      .table-note {
+        font-size: 7pt !important;
+        margin-top: 0.15rem !important;
       }
 
-      .metric-card-value {
-        font-size: 1.02rem !important;
+      ol.apa-list, ul.apa-list {
+        margin: 0.2rem 0 0.4rem 1.4rem !important;
+      }
+
+      ol.apa-list li, ul.apa-list li {
+        margin-bottom: 0.15rem !important;
+      }
+
+      p.apa-ref {
+        margin-bottom: 0.25rem !important;
+        font-size: 7.5pt !important;
       }
 
       a {
-        text-decoration: none !important;
-        color: var(--color-primary) !important;
+        color: #000000 !important;
+        text-decoration: underline !important;
       }
-    }
-
-    /* BARRA FLOTANTE DE ACCIONES EN NAVEGADOR */
-    .floating-action-bar {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--color-border);
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .fab-title {
-      font-size: 9pt;
-      font-weight: 700;
-      color: var(--color-heading);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .fab-buttons {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .fab-btn {
-      padding: 0.4rem 0.8rem;
-      font-size: 8.5pt;
-      font-weight: 600;
-      border-radius: 5px;
-      border: 1px solid var(--color-border);
-      background-color: var(--color-surface-muted);
-      color: var(--color-text-main);
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .fab-btn-primary {
-      background-color: var(--color-navy);
-      color: #ffffff;
-      border-color: var(--color-navy);
     }
   </style>
 </head>
 <body>
 
-  <!-- BARRA DE ACCIÓN WEB (SE OCULTA AUTOMÁTICAMENTE AL IMPRIMIR / GENERAR PDF) -->
-  <div class="floating-action-bar no-print">
-    <div class="fab-title">
-      <span>📄 Tarea I: Análisis Exploratorio de Datos (EDA) • GEIH DANE</span>
-      <span class="badge-status">Rúbrica 40/40 Pts</span>
+  <!-- BARRA DE ACCIÓN WEB FLOTANTE (SE OCULTA EN EL PDF / IMPRESIÓN) -->
+  <div class="floating-bar no-print">
+    <div class="floating-bar-info">
+      Documento Oficial de Entrega • Tarea I (EDA) • Formato Normas APA 7
     </div>
-    <div class="fab-buttons">
-      <button class="fab-btn fab-btn-primary" onclick="window.print()">
-        🖨️ Imprimir / Guardar como PDF
+    <div class="floating-bar-actions">
+      <button class="floating-btn floating-btn-primary" onclick="window.print()">
+        🖨️ Imprimir / Guardar PDF
       </button>
-      <a class="fab-btn" href="https://briamtorres.github.io/CienciaDatosRepo/Actividad1/actividad-1-analisis-de-datos.html" target="_blank">
-        🌐 Ver Reporte HTML en Línea
+      <a class="floating-btn" href="https://briamtorres.github.io/CienciaDatosRepo/Actividad1/actividad-1-analisis-de-datos.html" target="_blank">
+        🌐 Abrir Reporte Web
       </a>
-      <a class="fab-btn" href="https://github.com/BriamTorres/CienciaDatosRepo/tree/main/Actividad1" target="_blank">
-        💻 Repositorio GitHub
+      <a class="floating-btn" href="https://github.com/BriamTorres/CienciaDatosRepo/tree/main/Actividad1" target="_blank">
+        📁 Ver en GitHub
       </a>
     </div>
   </div>
@@ -651,197 +465,147 @@
   <div class="document-wrapper">
 
     <!-- ================================================================= -->
-    <!-- PÁGINA 1: PORTADA OFICIAL INSTITUCIONAL                          -->
+    <!-- PÁGINA 1: PORTADA EN NORMAS APA 7 (ESTUDIANTES)                  -->
     <!-- ================================================================= -->
-    <div class="doc-page page-break">
-      <div class="cover-container">
-        
-        <!-- ENCABEZADO INSTITUCIONAL -->
-        <div class="cover-institution">
-          <span class="institution-tag">Especialización • Semestre 1</span>
-          <div class="institution-name">Ciencia de Datos y Aprendizaje Automático para la Toma de Decisiones</div>
-          <div class="faculty-name">Módulo 04: Métodos de Análisis Exploratorio y Gobernanza de Microdatos</div>
-        </div>
+    <div class="doc-page page-break cover-page">
+      <div class="apa-header">1</div>
 
-        <!-- TÍTULO CENTRAL DEL PROYECTO -->
-        <div class="cover-title-box">
-          <div class="task-badge">Tarea I • Análisis Exploratorio de Datos (EDA)</div>
-          <h1 class="project-main-title">Fortalecimiento del Capital Humano en los Sectores Económicos de Colombia</h1>
-          <p class="project-subtitle">
-            Análisis exploratorio de niveles educativos, ocupación laboral e ingresos salariales a partir de la Gran Encuesta Integrada de Hogares (GEIH) del DANE
-          </p>
-        </div>
+      <h1 class="cover-title">
+        Fortalecimiento del Capital Humano en los Sectores Económicos de Colombia: Análisis Exploratorio de Niveles Educativos, Ocupación e Ingresos Laborales a partir de la GEIH del DANE
+      </h1>
+      
+      <p class="cover-subtitle">
+        Tarea I: Análisis Exploratorio de Datos
+      </p>
 
-        <!-- ENLACES DE ENTREGA DESTACADOS (REQUERIMIENTO CLAVE) -->
-        <div class="cover-quick-links">
-          <div class="quick-links-title">
-            <span>🔗 Enlaces Oficiales de Entrega y Verificación del Proyecto</span>
-          </div>
-          <div class="quick-links-grid">
-            <a class="link-card-mini" href="https://github.com/BriamTorres/CienciaDatosRepo/tree/main/Actividad1" target="_blank">
-              <div class="link-card-label">📁 Repositorio GitHub (Proyecto Completo)</div>
-              <div class="link-card-url">github.com/BriamTorres/CienciaDatosRepo/tree/main/Actividad1</div>
-            </a>
-            <a class="link-card-mini" href="https://briamtorres.github.io/CienciaDatosRepo/Actividad1/actividad-1-analisis-de-datos.html" target="_blank">
-              <div class="link-card-label">🌐 Reporte HTML Interactivo (GitHub Pages)</div>
-              <div class="link-card-url">briamtorres.github.io/.../actividad-1-analisis-de-datos.html</div>
-            </a>
-          </div>
-        </div>
+      <div class="cover-metadata">
+        <p class="student-names">Leidy Tatiana Jimenez, Nelson Felipe Guerrero Páez y Briam Stiven Torres Salamanca</p>
+        <p>Especialización en Ciencia de Datos y Aprendizaje Automático para la Toma de Decisiones</p>
+        <p>Módulo 04: Ciencia de Datos y Aprendizaje Automático para la Toma de Decisiones</p>
+        <p>Docente de la Asignatura</p>
+        <p>Noviembre de 2026</p>
+      </div>
 
-        <!-- INTEGRANTES DEL GRUPO Y METADATOS -->
-        <div class="cover-metadata">
-          <div>
-            <div class="meta-group-title">Integrantes del Equipo de Trabajo (Grupo 3)</div>
-            <div class="meta-item-person">Leidy Tatiana Jimenez</div>
-            <div class="meta-item-sub">Investigación de Contexto & Documentación Teórica</div>
-            <div style="height: 6px;"></div>
-            <div class="meta-item-person">Nelson Felipe Guerrero Páez</div>
-            <div class="meta-item-sub">Ingeniería de Datos, Cruce Relacional & Diccionarios DANE</div>
-            <div style="height: 6px;"></div>
-            <div class="meta-item-person">Briam Stiven Torres Salamanca</div>
-            <div class="meta-item-sub">Modelado Estadístico EDA, R Markdown & Despliegue Web</div>
-          </div>
-          <div>
-            <div class="meta-group-title">Información Académica y Docencia</div>
-            <div class="meta-item-person">Asignatura:</div>
-            <div class="meta-item-sub">Ciencia de Datos y Aprendizaje Automático</div>
-            <div style="height: 6px;"></div>
-            <div class="meta-item-person">Entorno de Desarrollo:</div>
-            <div class="meta-item-sub">R Core Team 4.x, RStudio, Tidyverse & Git/GitHub</div>
-            <div style="height: 6px;"></div>
-            <div class="meta-item-person">Fuente de Datos:</div>
-            <div class="meta-item-sub">DANE - Gran Encuesta Integrada de Hogares (GEIH)</div>
-          </div>
-        </div>
-
-        <!-- FECHA Y CIUDAD -->
-        <div class="cover-date-footer">
-          Bogotá D.C., Colombia • Noviembre de 2026
-        </div>
-
+      <div class="cover-author-note">
+        <div class="cover-author-note-title">Nota de Entrega y Enlaces del Proyecto</div>
+        <p>
+          Este trabajo fue elaborado de manera colaborativa por los estudiantes mencionados como parte de la evaluación de la Actividad 1. Los recursos computacionales, el código fuente en R Markdown y el informe web interactivo se encuentran publicados y accesibles en los siguientes enlaces públicos:
+        </p>
+        <p>
+          <strong>Repositorio del proyecto en GitHub:</strong><br>
+          <a href="https://github.com/BriamTorres/CienciaDatosRepo/tree/main/Actividad1" target="_blank">https://github.com/BriamTorres/CienciaDatosRepo/tree/main/Actividad1</a>
+        </p>
+        <p>
+          <strong>Reporte web interactivo (GitHub Pages):</strong><br>
+          <a href="https://briamtorres.github.io/CienciaDatosRepo/Actividad1/actividad-1-analisis-de-datos.html" target="_blank">https://briamtorres.github.io/CienciaDatosRepo/Actividad1/actividad-1-analisis-de-datos.html</a>
+        </p>
       </div>
     </div>
 
     <!-- ================================================================= -->
-    <!-- PÁGINA 2: ACCESO DIGITAL, GOBERNANZA Y TRABAJO EN EQUIPO         -->
+    <!-- PÁGINA 2: ENLACES DEL PROYECTO Y ORGANIZACIÓN DEL EQUIPO         -->
     <!-- ================================================================= -->
     <div class="doc-page page-break">
-      
-      <div class="page-header-mini">
-        <span>Tarea I: EDA - Capital Humano DANE</span>
-        <span>Acceso Digital & Trabajo en Equipo</span>
-      </div>
+      <div class="apa-header">2</div>
 
-      <h2>1. Enlaces Oficiales de Acceso y Publicación</h2>
-      <p class="lead">
-        En cumplimiento de los requerimientos de entrega y reproducibilidad del proyecto, a continuación se presentan los enlaces oficiales directos para auditar el código fuente, visualizar el informe HTML navegable y descargar los conjuntos de datos analíticos:
+      <h1 class="apa-h1">Recursos Digitales y Trabajo Colaborativo del Equipo</h1>
+
+      <h2 class="apa-h2">Enlaces de Acceso y Publicación</h2>
+      <p>
+        Para facilitar la revisión y garantizar la reproducibilidad del ejercicio, se consolidan a continuación los enlaces de acceso directo a los componentes del proyecto:
       </p>
 
       <div class="table-container">
-        <table class="data-table">
+        <div class="table-label">Tabla 1</div>
+        <div class="table-title">Componentes digitales y enlaces de entrega del proyecto</div>
+        <table class="apa-table">
           <thead>
             <tr>
-              <th style="width: 28%;">Componente</th>
-              <th style="width: 42%;">Descripción y Rol</th>
-              <th style="width: 30%;">Enlace de Acceso Directo</th>
+              <th style="width: 30%;">Componente</th>
+              <th style="width: 40%;">Descripción</th>
+              <th style="width: 30%;">Enlace de Acceso</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Repositorio Principal</strong></td>
-              <td>Raíz del proyecto con historial de commits y estructura reproducible</td>
-              <td><a href="https://github.com/BriamTorres/CienciaDatosRepo" target="_blank">github.com/BriamTorres/CienciaDatosRepo</a></td>
+              <td>Repositorio general</td>
+              <td>Raíz del proyecto con historial de versiones y estructura</td>
+              <td><a href="https://github.com/BriamTorres/CienciaDatosRepo" target="_blank">github.com/.../CienciaDatosRepo</a></td>
             </tr>
             <tr>
-              <td><strong>Directorio Actividad 1</strong></td>
-              <td>Subcarpeta contenedora de scripts, Rmd, datos fuente y resultados</td>
+              <td>Directorio Actividad 1</td>
+              <td>Carpeta con scripts, datos, Rmd y documentos finales</td>
               <td><a href="https://github.com/BriamTorres/CienciaDatosRepo/tree/main/Actividad1" target="_blank">github.com/.../Actividad1</a></td>
             </tr>
             <tr>
-              <td><strong>Reporte Web HTML</strong></td>
-              <td>Publicación oficial interactiva y autocontenida vía GitHub Pages</td>
+              <td>Reporte web interactivo</td>
+              <td>Informe HTML publicado en línea mediante GitHub Pages</td>
               <td><a href="https://briamtorres.github.io/CienciaDatosRepo/Actividad1/actividad-1-analisis-de-datos.html" target="_blank">Reporte HTML en Línea ↗</a></td>
             </tr>
             <tr>
-              <td><strong>Cuaderno R Markdown (.Rmd)</strong></td>
-              <td>Código fuente original parametrizado con bloques ejecutables (714 líneas)</td>
-              <td><a href="https://github.com/BriamTorres/CienciaDatosRepo/blob/main/Actividad1/actividad-1-analisis-de-datos.Rmd" target="_blank">Ver Rmd en GitHub ↗</a></td>
+              <td>Código en R Markdown</td>
+              <td>Script fuente ejecutable (<code>.Rmd</code>) con análisis completo</td>
+              <td><a href="https://github.com/BriamTorres/CienciaDatosRepo/blob/main/Actividad1/actividad-1-analisis-de-datos.Rmd" target="_blank">Ver archivo .Rmd ↗</a></td>
             </tr>
             <tr>
-              <td><strong>Matriz Sectorial Exportada</strong></td>
-              <td>Archivo CSV procesado con la priorización de 44 ramas económicas</td>
-              <td><a href="https://github.com/BriamTorres/CienciaDatosRepo/blob/main/Actividad1/tabla_priorizacion_sectorial.csv" target="_blank">Descargar Matriz CSV ↗</a></td>
+              <td>Matriz sectorial (CSV)</td>
+              <td>Dataset procesado con la priorización de 44 ramas económicas</td>
+              <td><a href="https://github.com/BriamTorres/CienciaDatosRepo/blob/main/Actividad1/tabla_priorizacion_sectorial.csv" target="_blank">Descargar matriz CSV ↗</a></td>
             </tr>
             <tr>
-              <td><strong>Catálogo DANE Microdatos</strong></td>
-              <td>Repositorio oficial de la Gran Encuesta Integrada de Hogares (GEIH)</td>
+              <td>Microdatos DANE</td>
+              <td>Catálogo oficial de la Gran Encuesta Integrada de Hogares</td>
               <td><a href="https://microdatos.dane.gov.co/index.php/catalog/central/about" target="_blank">microdatos.dane.gov.co ↗</a></td>
             </tr>
           </tbody>
         </table>
+        <div class="table-note">
+          <strong>Nota.</strong> Todos los enlaces fueron verificados y se encuentran en acceso público para evaluación directa del docente.
+        </div>
       </div>
 
-      <h2>2. Trabajo en Equipo y Distribución Equitativa de Responsabilidades</h2>
+      <h2 class="apa-h2">Organización y Desarrollo del Trabajo Grupal</h2>
       <p>
-        El proyecto fue desarrollado de forma articulada por los tres integrantes del equipo mediante una metodología de trabajo colaborativo, asegurando una asignación equilibrada de cargas de trabajo (33.3% de participación efectiva individual) a lo largo de las cuatro fases del ciclo de vida analítico:
+        El desarrollo de este trabajo se realizó de forma colaborativa entre los tres integrantes del grupo. Desde el inicio de la actividad nos reunimos a través de sesiones virtuales en Google Meet para comprender con claridad el propósito del proyecto, revisar en detalle los criterios de la rúbrica y definir conjuntamente el problema a abordar a partir de los microdatos laborales del DANE.
+      </p>
+      <p>
+        Nos distribuimos las tareas principales de acuerdo con los requerimientos metodológicos, pero trabajando siempre de forma articulada y con el apoyo constante de todos los compañeros. Durante las reuniones grupales compartimos pantalla para revisar los avances en el código en R, contrastar las decisiones de depuración (como el tratamiento de valores perdidos) y enriquecer entre todos la interpretación de las gráficas y conclusiones del informe.
       </p>
 
       <div class="table-container">
-        <table class="data-table">
+        <div class="table-label">Tabla 2</div>
+        <div class="table-title">Distribución de aportes y responsabilidades en el desarrollo de la actividad</div>
+        <table class="apa-table">
           <thead>
             <tr>
-              <th style="width: 25%;">Estudiante</th>
-              <th style="width: 45%;">Responsabilidades Principales y Aportes Clave</th>
-              <th style="width: 15%;">Dedicación</th>
-              <th style="width: 15%;">Cumplimiento</th>
+              <th style="width: 32%;">Integrante</th>
+              <th style="width: 68%;">Aportes y actividades desarrolladas en el proyecto</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><strong>Leidy Tatiana Jimenez</strong></td>
               <td>
-                • Revisión bibliográfica sobre teoría del capital humano (Becker, Mincer).<br>
-                • Redacción del planteamiento del problema y delimitación de preguntas.<br>
-                • Análisis cualitativo de la estructura del mercado laboral colombiano.<br>
-                • Interpretación económica y argumentación de las conclusiones finales.
+                Revisión conceptual y bibliográfica sobre capital humano (Becker, Mincer); redacción del planteamiento del problema y las preguntas de investigación; caracterización del mercado laboral y redacción de las conclusiones analíticas.
               </td>
-              <td class="num">33.3 %</td>
-              <td style="text-align: center;"><span class="badge-status">100 %</span></td>
             </tr>
             <tr>
               <td><strong>Nelson Felipe Guerrero Páez</strong></td>
               <td>
-                • Extracción y revisión de microdatos DANE (Ocupados y Características).<br>
-                • Protocolo de diagnóstico de calidad, duplicados y justificación de NAs.<br>
-                • Homologación de diccionarios normativos (DIVIPOLA, CIIU Rev. 4 y P3042).<br>
-                • Construcción de la llave relacional compuesta y validación de integridad.
+                Descarga e inspección de los módulos de la GEIH; formulación del procedimiento de limpieza de datos (revisión de duplicados y justificación de casos nulos); integración de los diccionarios oficiales DIVIPOLA y ramas CIIU Rev. 4.
               </td>
-              <td class="num">33.3 %</td>
-              <td style="text-align: center;"><span class="badge-status">100 %</span></td>
             </tr>
             <tr>
               <td><strong>Briam Stiven Torres Salamanca</strong></td>
               <td>
-                • Modelado de funciones estadísticas univariadas y cálculo de asimetría.<br>
-                • Diseño de visualizaciones analíticas de alta densidad en <code>ggplot2</code>.<br>
-                • Estructuración del cuaderno R Markdown parametrizado y ejecutable.<br>
-                • Control de versiones Git, publicación en GitHub Pages y entrega del PDF.
+                Programación del análisis exploratorio en R (cálculo de estadísticos descriptivos y asimetría); diseño de gráficas en <code>ggplot2</code>; estructuración y compilación del cuaderno R Markdown; publicación web en GitHub Pages y generación del documento PDF.
               </td>
-              <td class="num">33.3 %</td>
-              <td style="text-align: center;"><span class="badge-status">100 %</span></td>
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div class="card-box-accent">
-        <strong>Mecanismo de Coordinación y Gobernanza:</strong> El equipo implementó sesiones de alineación sincrónica para validar hitos analíticos, revisión cruzada de código fuente (*code review* por pares) para evitar sesgos metodológicos, y seguimiento en GitHub para garantizar la trazabilidad de los commits y la reproducibilidad integral de los resultados.
-      </div>
-
-      <div class="page-footer-mini">
-        <span>Especialización en Ciencia de Datos y Machine Learning</span>
-        <span>Página 2</span>
+        <div class="table-note">
+          <strong>Nota.</strong> La coordinación se mantuvo mediante comunicación continua en canales grupales y revisiones conjuntas previas a la entrega definitiva.
+        </div>
       </div>
 
     </div>
@@ -850,100 +614,96 @@
     <!-- PÁGINA 3: PLANTEAMIENTO, OBJETIVOS Y DATASET DANE                -->
     <!-- ================================================================= -->
     <div class="doc-page page-break">
-      
-      <div class="page-header-mini">
-        <span>Tarea I: EDA - Capital Humano DANE</span>
-        <span>Planteamiento, Objetivos y Dataset</span>
-      </div>
+      <div class="apa-header">3</div>
 
-      <h2>3. Planteamiento del Problema</h2>
+      <h1 class="apa-h1">Planteamiento del Problema, Objetivos y Selección del Dataset</h1>
+
+      <h2 class="apa-h2">Planteamiento del Problema</h2>
       <p>
-        El capital humano —definido como el acervo de conocimientos, competencias y destrezas formales adquiridas por la fuerza laboral— constituye el factor de mayor incidencia en la productividad agregada y la reducción de la desigualdad económica (Schultz, 1961; Becker, 1964; Mincer, 1974). No obstante, en la economía colombiana coexisten sectores intensivos en conocimiento con ramas tradicionales de baja cualificación, alta informalidad y salarios estancados.
+        La teoría del capital humano (Schultz, 1961; Becker, 1964; Mincer, 1974) plantea que los conocimientos, competencias y destrezas adquiridas formalmente constituyen uno de los determinantes más importantes de la productividad y los ingresos de las personas. En Colombia, el mercado laboral presenta marcadas asimetrías: mientras algunos sectores demandan alta cualificación y ofrecen salarios competitivos, otros absorben a gran parte de la población trabajadora en condiciones de baja escolaridad, alta informalidad y remuneraciones estancadas.
       </p>
       <p>
-        A pesar de la expansión histórica de la matrícula educativa, la distribución del ingreso sigue presentando brechas estructurales. Resulta indispensable diagnosticar con evidencia empírica qué actividades económicas y territorios presentan mayores rezagos formativos, orientando así los programas de educación técnica, universitaria y formación para el trabajo.
+        Para orientar programas de formación técnica y universitaria pertinentes, resulta fundamental responder con base en datos oficiales la siguiente pregunta de investigación:
+      </p>
+      <p style="margin-left: 1.5rem; margin-right: 1.5rem; font-style: italic;">
+        ¿Qué sectores económicos y departamentos de Colombia presentan mayores rezagos y necesidades potenciales de fortalecimiento de capital humano, considerando la relación empírica entre el nivel educativo alcanzado y los ingresos laborales percibidos en la Gran Encuesta Integrada de Hogares (GEIH) del DANE?
       </p>
 
-      <div class="card-box-accent">
-        <strong>Pregunta Central de Investigación:</strong><br>
-        <em>¿Qué sectores económicos y departamentos de Colombia presentan mayores rezagos y necesidades potenciales de fortalecimiento de capital humano, considerando la relación empírica entre el nivel educativo alcanzado y los ingresos laborales percibidos en la Gran Encuesta Integrada de Hogares (GEIH) del DANE?</em>
-      </div>
-
-      <h2>4. Objetivos del Proyecto</h2>
-      <h3>Objetivo General</h3>
+      <h2 class="apa-h2">Objetivos del Proyecto</h2>
+      <h3 class="apa-h3">Objetivo General</h3>
       <p>
-        Analizar la relación empírica entre el nivel educativo, las ramas de actividad económica y los ingresos laborales de la población ocupada en Colombia mediante técnicas de Análisis Exploratorio de Datos (EDA) sobre los microdatos de la GEIH del DANE, con el fin de identificar sectores y territorios prioritarios para el fortalecimiento de la fuerza laboral.
+        Analizar la relación entre el nivel educativo, las ramas de actividad económica y los ingresos laborales de la población ocupada en Colombia mediante técnicas de Análisis Exploratorio de Datos (EDA) sobre los microdatos de la GEIH del DANE, para identificar sectores y territorios prioritarios en el fortalecimiento de la fuerza laboral.
       </p>
 
-      <h3>Objetivos Específicos</h3>
-      <ol class="obj-list">
-        <li><strong>Descargar e integrar</strong> relacionalmente los módulos <em>Ocupados</em> y <em>Características Generales</em> de la GEIH mediante claves unívocas normalizadas (<code>DIRECTORIO + SECUENCIA_P + ORDEN</code>).</li>
-        <li><strong>Diagnosticar y depurar la calidad</strong> de los datos mediante la verificación de duplicados y el tratamiento fundamentado de valores faltantes (<code>NA</code>) e ingresos reportados en cero.</li>
-        <li><strong>Calcular medidas estadísticas descriptivas</strong> de tendencia central, posición, dispersión y forma (asimetría) sobre la variable cuantitativa de ingreso laboral (<code>INGLABO</code>).</li>
-        <li><strong>Evaluar la distribución bivariada</strong> de los retornos salariales por nivel educativo formal alcanzado, contrastando las brechas frente al salario mínimo legal y la mediana nacional.</li>
-        <li><strong>Construir una matriz de priorización sectorial</strong> para clasificar las ramas económicas (CIIU Rev. 4) según su vulnerabilidad en escolaridad e ingreso mediano.</li>
-        <li><strong>Identificar el Top 10 departamental</strong> según ingresos laborales y proyectar el dataset depurado para su posterior modelado mediante algoritmos de Aprendizaje Automático no supervisado.</li>
+      <h3 class="apa-h3">Objetivos Específicos</h3>
+      <ol class="apa-list">
+        <li>Descargar e integrar los módulos <em>Ocupados</em> y <em>Características Generales</em> de la GEIH mediante claves unívocas normalizadas (<code>DIRECTORIO + SECUENCIA_P + ORDEN</code>).</li>
+        <li>Diagnosticar la calidad de la información, verificando duplicados y aplicando tratamiento fundamentado a los datos perdidos (<code>NA</code>) e ingresos en cero.</li>
+        <li>Calcular medidas estadísticas descriptivas de posición, tendencia central, dispersión y asimetría sobre la variable continua de ingreso laboral (<code>INGLABO</code>).</li>
+        <li>Evaluar la relación bivariada entre los niveles educativos y los ingresos percibidos mediante visualizaciones estadísticas en escala logarítmica.</li>
+        <li>Construir una matriz de priorización sectorial que identifique ramas económicas críticas con alta concentración de baja escolaridad e ingresos inferiores a la mediana nacional.</li>
+        <li>Identificar el Top 10 departamental según mediana salarial y proyectar el conjunto de datos limpio para futuras etapas de aprendizaje automático.</li>
       </ol>
 
-      <h2>5. Selección y Descripción del Dataset Oficial</h2>
+      <h2 class="apa-h2">Selección y Descripción del Dataset Oficial</h2>
       <p>
-        La información proviene de la plataforma oficial <strong>Microdatos DANE</strong>, área temática <em>Economía – Mercado Laboral</em>, correspondiente a la <strong>Gran Encuesta Integrada de Hogares (GEIH)</strong>. Se integraron dos archivos estratégicos:
+        Los microdatos provienen del repositorio oficial del DANE (<a href="https://microdatos.dane.gov.co/index.php/catalog/central/about" target="_blank">Catálogo de Microdatos</a>), categoría <em>Economía – Mercado Laboral</em>. Se seleccionaron dos módulos: <em>Ocupados</em> (29.611 filas, 202 columnas) y <em>Características Generales</em> (66.559 filas, 55 columnas).
       </p>
 
       <div class="table-container">
-        <table class="data-table">
+        <div class="table-label">Tabla 3</div>
+        <div class="table-title">Variables seleccionadas de la GEIH para el estudio analítico</div>
+        <table class="apa-table">
           <thead>
             <tr>
-              <th>Variable</th>
-              <th>Código Técnico</th>
-              <th>Naturaleza / Escala</th>
-              <th>Descripción y Función Analítica</th>
+              <th style="width: 25%;">Variable</th>
+              <th style="width: 22%;">Código Técnico</th>
+              <th style="width: 23%;">Naturaleza / Escala</th>
+              <th style="width: 30%;">Rol y Uso en el Estudio</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Ingreso Laboral</strong></td>
+              <td>Ingreso laboral mensual</td>
               <td><code>INGLABO</code></td>
-              <td>Cuantitativa Continua (COP)</td>
-              <td>Variable objetivo de remuneración mensual percibida por trabajo principal.</td>
+              <td>Cuantitativa continua</td>
+              <td>Variable económica cuantitativa de estudio (en COP)</td>
             </tr>
             <tr>
-              <td><strong>Nivel Educativo</strong></td>
+              <td>Nivel educativo máximo</td>
               <td><code>P3042</code></td>
-              <td>Cualitativa Ordinal (1 a 13)</td>
-              <td>Máximo nivel educativo aprobado formalmente (desde Ninguno hasta Doctorado).</td>
+              <td>Cualitativa ordinal</td>
+              <td>13 niveles formales (desde Ninguno hasta Doctorado)</td>
             </tr>
             <tr>
-              <td><strong>Departamento</strong></td>
+              <td>Departamento</td>
               <td><code>DPTO</code></td>
-              <td>Cualitativa Nominal (DIVIPOLA)</td>
-              <td>Ubicación geográfica del encuestado (33 divisiones político-administrativas).</td>
+              <td>Cualitativa nominal</td>
+              <td>33 divisiones político-administrativas (DIVIPOLA)</td>
             </tr>
             <tr>
-              <td><strong>Rama de Actividad</strong></td>
+              <td>Rama económica</td>
               <td><code>RAMA2D_R4</code></td>
-              <td>Cualitativa Nominal (CIIU Rev. 4)</td>
-              <td>Clasificación de la actividad económica a dos dígitos (99 ramas estandarizadas).</td>
+              <td>Cualitativa nominal</td>
+              <td>Clasificación CIIU Rev. 4 a 2 dígitos (44 ramas activas)</td>
             </tr>
             <tr>
-              <td><strong>Factor Expansión</strong></td>
+              <td>Factor de expansión</td>
               <td><code>FEX_C18</code></td>
-              <td>Cuantitativa Continua</td>
-              <td>Ponderador muestral para extrapolar las observaciones a la población nacional.</td>
+              <td>Cuantitativa continua</td>
+              <td>Ponderador muestral para extrapolar a población nacional</td>
             </tr>
             <tr>
-              <td><strong>Llaves de Cruce</strong></td>
-              <td><code>DIRECTORIO, SECUENCIA_P, ORDEN</code></td>
-              <td>Compuesta Alfanumérica</td>
-              <td>Identificadores unívocos para asociar el hogar, vivienda y persona censada.</td>
+              <td>Llaves relacionales</td>
+              <td><code>DIRECTORIO, ...</code></td>
+              <td>Compuesta relacional</td>
+              <td>Identificadores unívocos de vivienda, hogar y persona</td>
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div class="page-footer-mini">
-        <span>Especialización en Ciencia de Datos y Machine Learning</span>
-        <span>Página 3</span>
+        <div class="table-note">
+          <strong>Nota.</strong> Códigos correspondientes al manual técnico y metodológico de la GEIH (DANE, 2024).
+        </div>
       </div>
 
     </div>
@@ -952,322 +712,292 @@
     <!-- PÁGINA 4: LIMPIEZA DE DATOS Y ESTADÍSTICAS UNIVARIADAS            -->
     <!-- ================================================================= -->
     <div class="doc-page page-break">
-      
-      <div class="page-header-mini">
-        <span>Tarea I: EDA - Capital Humano DANE</span>
-        <span>Limpieza de Datos y Estadísticas Descriptivas</span>
-      </div>
+      <div class="apa-header">4</div>
 
-      <h2>6. Procedimiento Metodológico de Limpieza y Saneamiento</h2>
+      <h1 class="apa-h1">Procedimiento de Limpieza y Análisis Estadístico Descriptivo</h1>
+
+      <h2 class="apa-h2">Diagnóstico y Saneamiento de Datos</h2>
       <p>
-        El saneamiento de la información se ejecutó bajo un protocolo estricto de gobernanza de datos en R, documentando cada decisión para asegurar la reproducibilidad científica:
+        El proceso de limpieza se estructuró de manera metodológica en R siguiendo buenas prácticas de gobernanza:
       </p>
+      <ol class="apa-list">
+        <li><strong>Control de duplicados:</strong> Se verificó la unicidad de las llaves compuestas y registros completos, arrojando <strong>0 duplicados</strong> en ambos módulos originales.</li>
+        <li><strong>Cruce relacional:</strong> Se ejecutó un <code>left_join</code> entre <em>Ocupados</em> y <em>Características Generales</em> sin pérdidas de información en la llave primaria.</li>
+        <li><strong>Tratamiento de valores faltantes (<code>NA = 601</code>):</strong> Equivalentes al 2,03% de la muestra. En encuestas de empleo, imputar salarios con medidas simples puede alterar la varianza real; por ende, se aplicó exclusión por caso completo (<em>listwise deletion</em>).</li>
+        <li><strong>Tratamiento de ingresos en cero ($0 COP = 168):</strong> Correspondientes a trabajadores familiares auxiliares o pasantes sin retribución fija; se aislaron para focalizar el análisis en ingresos laborales efectivos.</li>
+      </ol>
 
       <div class="table-container">
-        <table class="data-table">
+        <div class="table-label">Tabla 4</div>
+        <div class="table-title">Trazabilidad del proceso de saneamiento de la muestra analítica</div>
+        <table class="apa-table">
           <thead>
             <tr>
-              <th>Etapa del Protocolo</th>
-              <th class="num">Registros Muestrales</th>
-              <th class="num">Población Expandida</th>
-              <th>Justificación Metodológica</th>
+              <th style="width: 38%;">Etapa de Depuración</th>
+              <th style="width: 20%;" class="num">Registros Muestra</th>
+              <th style="width: 22%;" class="num">Población Expandida</th>
+              <th style="width: 20%;">Porcentaje</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>1. Módulo Ocupados Fuente</strong></td>
+              <td>1. Módulo Ocupados original</td>
               <td class="num">29.611</td>
               <td class="num">24.084.771</td>
-              <td>Universo bruto de personas ocupadas con reporte laboral activo.</td>
+              <td>100,00 %</td>
             </tr>
             <tr>
-              <td><strong>2. Cruce Relacional con Generales</strong></td>
+              <td>2. Cruce con Características Generales</td>
               <td class="num">29.611</td>
               <td class="num">24.084.771</td>
-              <td><code>left_join</code> sin pérdida de filas; 0 duplicados en llaves unívocas.</td>
+              <td>100,00 %</td>
             </tr>
             <tr>
-              <td><strong>3. Exclusión de Faltantes (NA)</strong></td>
-              <td class="num">- 601 (2,03%)</td>
+              <td>3. Exclusión de valores perdidos (NA)</td>
+              <td class="num">- 601</td>
               <td class="num">- 494.509</td>
-              <td>Eliminación por caso completo (<em>listwise deletion</em>) para no atenuar varianza.</td>
+              <td>- 2,03 %</td>
             </tr>
             <tr>
-              <td><strong>4. Aislamiento de Ingreso Cero ($0)</strong></td>
-              <td class="num">- 168 (0,57%)</td>
+              <td>4. Aislamiento de ingresos en cero ($0)</td>
+              <td class="num">- 168</td>
               <td class="num">- 117.186</td>
-              <td>Trabajadores familiares no remunerados aislados del análisis salarial.</td>
+              <td>- 0,57 %</td>
             </tr>
             <tr>
-              <td><strong>5. Muestra Analítica Final</strong></td>
-              <td class="num"><strong>28.842 (97,4%)</strong></td>
+              <td><strong>5. Muestra analítica final</strong></td>
+              <td class="num"><strong>28.842</strong></td>
               <td class="num"><strong>23.473.076</strong></td>
-              <td>Conjunto depurado con ingreso positivo y nivel educativo verificado.</td>
+              <td><strong>97,40 %</strong></td>
             </tr>
           </tbody>
         </table>
+        <div class="table-note">
+          <strong>Nota.</strong> La población expandida fue estimada mediante el factor de ponderación demográfica <code>FEX_C18</code>.
+        </div>
       </div>
 
-      <h2>7. Resumen de Estadísticas Descriptivas de la Variable Cuantitativa (`INGLABO`)</h2>
+      <h2 class="apa-h2">Estadísticas Descriptivas del Ingreso Laboral Mensual (`INGLABO`)</h2>
       <p>
-        Se estimaron 12 estadísticos que capturan la posición, dispersión, tendencia central y forma distributiva del ingreso laboral mensual en Colombia (expresado en pesos colombianos - COP):
+        Sobre la muestra depurada de 28.842 trabajadores se estimaron doce medidas estadísticas fundamentales para caracterizar la posición, dispersión y forma distributiva:
       </p>
 
-      <!-- TARJETAS DE MÉTRICAS CLAVE -->
-      <div class="metrics-grid-4">
-        <div class="metric-card">
-          <div class="metric-card-label">Mediana (Q2)</div>
-          <div class="metric-card-value">$1.423.500</div>
-          <div class="metric-card-sub">50% percibe igual o menos</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-card-label">Media (Promedio)</div>
-          <div class="metric-card-value">$1.857.918</div>
-          <div class="metric-card-sub">+30,5% superior a la mediana</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-card-label">Moda Salarial</div>
-          <div class="metric-card-value">$1.423.500</div>
-          <div class="metric-card-sub">Efecto ancla salario mínimo</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-card-label">Asimetría de Fisher</div>
-          <div class="metric-card-value">13,39</div>
-          <div class="metric-card-sub">Sesgo positivo extremo</div>
-        </div>
-      </div>
-
       <div class="table-container">
-        <table class="data-table">
+        <div class="table-label">Tabla 5</div>
+        <div class="table-title">Medidas estadísticas descriptivas calculadas para el ingreso laboral (COP)</div>
+        <table class="apa-table">
           <thead>
             <tr>
-              <th>Estadístico</th>
-              <th class="num">Valor Calculado</th>
-              <th>Interpretación Analítica y Económica</th>
+              <th style="width: 28%;">Medida Estadística</th>
+              <th style="width: 22%;" class="num">Valor Obtenido</th>
+              <th style="width: 50%;">Interpretación Económica y Estadística</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Mínimo / Máximo</strong></td>
+              <td>Mínimo / Máximo</td>
               <td class="num">$10.000 / $92.000.000</td>
-              <td>Amplitud salarial de \$91,99 millones, evidenciando la coexistencia de empleo ultra informal y alta dirección.</td>
+              <td>Rango de \$91,99 millones, reflejando gran heterogeneidad en el mercado laboral.</td>
             </tr>
             <tr>
-              <td><strong>Primer Cuartil (Q1)</strong></td>
+              <td>Primer cuartil (Q1)</td>
               <td class="num">$880.000</td>
-              <td>El 25% de la fuerza laboral percibe ingresos inferiores al salario mínimo legal vigente.</td>
+              <td>El 25% de los ocupados percibe ingresos por debajo del salario mínimo.</td>
             </tr>
             <tr>
-              <td><strong>Mediana Salarial (Q2)</strong></td>
-              <td class="num">$1.423.500</td>
-              <td>Punto medio de la distribución; el 50% de los ocupados gana como máximo este monto.</td>
+              <td><strong>Mediana (Q2)</strong></td>
+              <td class="num"><strong>$1.423.500</strong></td>
+              <td>El 50% de la fuerza laboral devenga como máximo este monto mensual.</td>
             </tr>
             <tr>
-              <td><strong>Tercer Cuartil (Q3)</strong></td>
+              <td><strong>Moda salarial</strong></td>
+              <td class="num"><strong>$1.423.500</strong></td>
+              <td>Coincidencia exacta con la mediana; fuerte efecto ancla del salario mínimo.</td>
+            </tr>
+            <tr>
+              <td><strong>Media (Promedio)</strong></td>
+              <td class="num"><strong>$1.857.918</strong></td>
+              <td>Supera en un 30,5% a la mediana debido a valores atípicos en la cola superior.</td>
+            </tr>
+            <tr>
+              <td>Tercer cuartil (Q3)</td>
               <td class="num">$2.000.000</td>
-              <td>El 75% de los ocupados en Colombia devenga como máximo dos millones de pesos.</td>
+              <td>El 75% de los ocupados en el país gana dos millones de pesos o menos.</td>
             </tr>
             <tr>
-              <td><strong>Rango Intercuartílico (IQR)</strong></td>
+              <td>Rango intercuartílico (IQR)</td>
               <td class="num">$1.120.000</td>
-              <td>Amplitud del 50% central de los trabajadores (comprendido entre \$880.000 y \$2.000.000).</td>
+              <td>Amplitud que delimita el 50% central de los ingresos de los trabajadores.</td>
             </tr>
             <tr>
-              <td><strong>Desviación Estándar</strong></td>
+              <td>Desviación estándar</td>
               <td class="num">$2.097.350</td>
-              <td>Alta variabilidad absoluta originada por los salarios del 1% superior de la distribución.</td>
+              <td>Elevada variabilidad absoluta provocada por ingresos excepcionales.</td>
             </tr>
             <tr>
-              <td><strong>Coeficiente de Variación</strong></td>
+              <td>Coeficiente de variación</td>
               <td class="num">112,89 %</td>
-              <td>Dispersión relativa superior al 100%, ratificando la heterogeneidad extrema de los ingresos.</td>
+              <td>Alta dispersión relativa (&gt;100%), confirmando un mercado poco homogéneo.</td>
             </tr>
             <tr>
-              <td><strong>Asimetría de Fisher-Pearson</strong></td>
+              <td>Asimetría de Fisher</td>
               <td class="num">13,39</td>
-              <td>Asimetría fuertemente positiva hacia la derecha; la media sobreestima el ingreso del trabajador típico.</td>
+              <td>Asimetría fuertemente positiva; la media no es representativa del trabajador común.</td>
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div class="card-box-accent">
-        <strong>Hallazgo Clave de la Distribución:</strong> La perfecta convergencia entre la <strong>mediana ($1.423.500)</strong> y la <strong>moda ($1.423.500)</strong> demuestra empíricamente el fuerte efecto ancla del salario mínimo legal en Colombia, el cual actúa como polo concentrador de la estructura formal e informal de remuneraciones.
-      </div>
-
-      <div class="page-footer-mini">
-        <span>Especialización en Ciencia de Datos y Machine Learning</span>
-        <span>Página 4</span>
+        <div class="table-note">
+          <strong>Nota.</strong> Cifras calculadas en R a partir del conjunto de datos saneado.
+        </div>
       </div>
 
     </div>
 
     <!-- ================================================================= -->
-    <!-- PÁGINA 5: RETORNOS, SECTORES, TOP 10 Y RÚBRICA 40/40             -->
+    <!-- PÁGINA 5: RETORNOS, SECTORES, TOP 10, RÚBRICA Y REFERENCIAS      -->
     <!-- ================================================================= -->
     <div class="doc-page">
-      
-      <div class="page-header-mini">
-        <span>Tarea I: EDA - Capital Humano DANE</span>
-        <span>Hallazgos EDA, Priorización & Rúbrica</span>
-      </div>
+      <div class="apa-header">5</div>
 
-      <h2>8. Retornos Salariales al Capital Humano y Priorización Territorial</h2>
+      <h1 class="apa-h1">Retornos Salariales, Priorización Sectorial y Correspondencia</h1>
+
+      <h2 class="apa-h2">Retornos Educativos y Análisis Territorial</h2>
       <p>
-        El análisis cruzado entre el nivel educativo (<code>P3042</code>) y el ingreso salarial revela retornos estrictamente crecientes y monótonos conforme aumenta la formación académica formal:
+        El cruce entre educación e ingresos corrobora empíricamente la teoría del capital humano: la mediana salarial asciende de forma continua con los años de estudio formal:
       </p>
 
       <div class="table-container">
-        <table class="data-table">
+        <div class="table-label">Tabla 6</div>
+        <div class="table-title">Mediana y media salarial según nivel educativo formal aprobado</div>
+        <table class="apa-table">
           <thead>
             <tr>
-              <th>Nivel Educativo Aprobado</th>
-              <th class="num">Muestra (n)</th>
-              <th class="num">Participación</th>
-              <th class="num">Mediana (COP)</th>
-              <th class="num">Media (COP)</th>
-              <th class="num">Brecha vs. Mediana Nal.</th>
+              <th style="width: 30%;">Nivel Educativo</th>
+              <th style="width: 15%;" class="num">Muestra (n)</th>
+              <th style="width: 15%;">% Muestra</th>
+              <th style="width: 20%;" class="num">Mediana (COP)</th>
+              <th style="width: 20%;" class="num">Brecha vs. Mediana Nal.</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Ninguno / Preescolar</td>
               <td class="num">466</td>
-              <td class="num">1,62 %</td>
+              <td>1,62 %</td>
               <td class="num">$700.000</td>
-              <td class="num">$910.892</td>
-              <td class="num" style="color: var(--color-rose);">- 50,8 %</td>
+              <td class="num">- 50,8 %</td>
             </tr>
             <tr>
-              <td>Básica Primaria</td>
+              <td>Básica primaria</td>
               <td class="num">3.513</td>
-              <td class="num">12,18 %</td>
+              <td>12,18 %</td>
               <td class="num">$800.000</td>
-              <td class="num">$1.026.046</td>
-              <td class="num" style="color: var(--color-rose);">- 43,8 %</td>
+              <td class="num">- 43,8 %</td>
             </tr>
             <tr>
-              <td>Básica Secundaria</td>
+              <td>Básica secundaria</td>
               <td class="num">4.621</td>
-              <td class="num">16,02 %</td>
+              <td>16,02 %</td>
               <td class="num">$1.100.000</td>
-              <td class="num">$1.205.852</td>
-              <td class="num" style="color: var(--color-amber);">- 22,7 %</td>
+              <td class="num">- 22,7 %</td>
             </tr>
             <tr>
-              <td>Media Académica (Modal)</td>
+              <td>Media académica (Modal)</td>
               <td class="num">9.409</td>
-              <td class="num">32,62 %</td>
+              <td>32,62 %</td>
               <td class="num">$1.400.000</td>
-              <td class="num">$1.516.488</td>
               <td class="num">- 1,7 %</td>
             </tr>
             <tr>
               <td>Técnica / Tecnológica</td>
               <td class="num">4.731</td>
-              <td class="num">16,40 %</td>
+              <td>16,40 %</td>
               <td class="num">$1.600.000</td>
-              <td class="num">$1.841.597</td>
-              <td class="num" style="color: var(--color-emerald);">+ 12,4 %</td>
+              <td class="num">+ 12,4 %</td>
             </tr>
             <tr>
               <td>Universitaria</td>
               <td class="num">4.571</td>
-              <td class="num">15,85 %</td>
+              <td>15,85 %</td>
               <td class="num">$2.301.000</td>
-              <td class="num">$2.999.559</td>
-              <td class="num" style="color: var(--color-emerald);"><strong>+ 61,6 %</strong></td>
+              <td class="num">+ 61,6 %</td>
             </tr>
             <tr>
               <td>Posgrados (Esp./Maestría/Doc.)</td>
               <td class="num">1.531</td>
-              <td class="num">5,31 %</td>
+              <td>5,31 %</td>
               <td class="num">$4.500.000</td>
-              <td class="num">$5.534.629</td>
-              <td class="num" style="color: var(--color-emerald);"><strong>+ 216,1 %</strong></td>
+              <td class="num">+ 216,1 %</td>
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.8rem;">
-        <div>
-          <h3>Cuadrante Crítico Sectorial (Grupo 3)</h3>
-          <p style="font-size: 8.5pt;">
-            Se identificaron <strong>9 ramas económicas críticas</strong> que concentran a más de <strong>6,06 millones de trabajadores expandidos</strong> con baja escolaridad (&gt;40% hasta básica secundaria) y medianas salariales inferiores a la nacional: <em>Pesca (\$1.0M), Agricultura (\$800K), Construcción de edificios (\$1.3M), Confección (\$1.3M) y Servicio doméstico (\$600K)</em>.
-          </p>
-        </div>
-        <div>
-          <h3>Top 10 Departamental (Mediana Salarial)</h3>
-          <p style="font-size: 8.5pt;">
-            Liderado por <strong>Bogotá D.C. (\$1.800.000)</strong>, <strong>San Andrés (\$1.800.000)</strong> y <strong>Antioquia (\$1.600.000)</strong>. Estos departamentos presentan las menores tasas de rezago escolar (&lt;18%), ratificando espacialmente que a mayor dotación de capital humano, mayores ingresos medianos.
-          </p>
+        <div class="table-note">
+          <strong>Nota.</strong> La brecha porcentual se calculó con respecto a la mediana nacional ($1.423.500 COP).
         </div>
       </div>
 
-      <h2>9. Verificación de Cumplimiento de la Rúbrica de Evaluación</h2>
+      <p>
+        <strong>Priorización sectorial (Grupo 3):</strong> Se identificaron 9 ramas críticas (&gt;40% de trabajadores con escolaridad hasta básica secundaria y mediana salarial inferior a la nacional), entre ellas <em>Agricultura ($800K), Pesca ($1.0M), Construcción de edificios ($1.3M) y Confección ($1.3M)</em>, que congregan a más de 6,06 millones de ocupados expandidos.<br>
+        <strong>Top 10 territorial:</strong> Liderado por Bogotá D.C. ($1.800.000), San Andrés ($1.800.000) y Antioquia ($1.600.000), departamentos que exhiben las menores tasas de rezago educativo (&lt;18%), ratificando a escala espacial la importancia del capital humano.
+      </p>
+
+      <h2 class="apa-h2">Correspondencia del Proyecto con la Rúbrica de Evaluación</h2>
       <div class="table-container">
-        <table class="data-table">
+        <div class="table-label">Tabla 7</div>
+        <div class="table-title">Relación entre los criterios de evaluación y los desarrollos presentados</div>
+        <table class="apa-table">
           <thead>
             <tr>
-              <th style="width: 25%;">Criterio Evaluado</th>
-              <th style="width: 60%;">Evidencia Entregada en el Informe y Cuaderno Rmd</th>
-              <th style="width: 15%; text-align: center;">Puntaje</th>
+              <th style="width: 32%;">Criterio de la Rúbrica</th>
+              <th style="width: 68%;">Evidencia y Sección donde se Desarrolla en el Proyecto</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>1. Planteamiento del problema</strong></td>
-              <td>Redacción rigurosa con marco teórico (Schultz, Becker, Mincer) y pregunta de investigación definida.</td>
-              <td style="text-align: center;"><span class="rubric-score-badge">5 / 5 pts</span></td>
+              <td>1. Planteamiento del problema</td>
+              <td>Contexto teórico (Becker, Mincer), problemática laboral y pregunta de investigación (Sección 1 del Rmd).</td>
             </tr>
             <tr>
-              <td><strong>2. Objetivos del proyecto</strong></td>
-              <td>Objetivo general claro y 6 objetivos específicos secuenciales, medibles y reproducibles.</td>
-              <td style="text-align: center;"><span class="rubric-score-badge">5 / 5 pts</span></td>
+              <td>2. Objetivos del proyecto</td>
+              <td>Objetivo general y 6 objetivos específicos secuenciales y medibles (Sección 1 del Rmd).</td>
             </tr>
             <tr>
-              <td><strong>3. Selección y descripción del dataset</strong></td>
-              <td>Módulos Ocupados y Características de la GEIH DANE, diccionarios oficiales y 6 variables clave descritas.</td>
-              <td style="text-align: center;"><span class="rubric-score-badge">5 / 5 pts</span></td>
+              <td>3. Selección y descripción del dataset</td>
+              <td>Módulos Ocupados y Características de la GEIH DANE; 6 variables y diccionarios oficiales (Sección 2).</td>
             </tr>
             <tr>
-              <td><strong>4. Limpieza de datos</strong></td>
-              <td>0 duplicados comprobados; tratamiento fundamentado de 601 NAs y 168 ceros; muestra final de 28.842 obs.</td>
-              <td style="text-align: center;"><span class="rubric-score-badge">5 / 5 pts</span></td>
+              <td>4. Limpieza de datos</td>
+              <td>Control de duplicados (0); tratamiento metodológico de 601 NAs y 168 ceros; trazabilidad completa (Sección 3).</td>
             </tr>
             <tr>
-              <td><strong>5. Análisis exploratorio (EDA)</strong></td>
-              <td>12 medidas estadísticas, asimetría de Fisher, 7 gráficos en ggplot2, cuadrantes sectoriales y Top 10 regional.</td>
-              <td style="text-align: center;"><span class="rubric-score-badge">5 / 5 pts</span></td>
+              <td>5. Análisis exploratorio (EDA)</td>
+              <td>12 medidas estadísticas, asimetría, 7 gráficos en <code>ggplot2</code>, retornos salariales y Top 10 regional (Sección 4).</td>
             </tr>
             <tr>
-              <td><strong>6. Informe en R Markdown</strong></td>
-              <td>Cuaderno de 714 líneas estructurado con chunks limpios, knitr::kable, code folding y estilo profesional.</td>
-              <td style="text-align: center;"><span class="rubric-score-badge">5 / 5 pts</span></td>
+              <td>6. Informe en R Markdown</td>
+              <td>Cuaderno reproducible de 714 líneas estructurado con <code>knitr::kable</code> y código visible (Archivo .Rmd).</td>
             </tr>
             <tr>
-              <td><strong>7. Publicación y entrega</strong></td>
-              <td>Repositorio público en GitHub, HTML funcional en GitHub Pages y documento PDF ejecutivo con enlaces.</td>
-              <td style="text-align: center;"><span class="rubric-score-badge">5 / 5 pts</span></td>
+              <td>7. Publicación y entrega</td>
+              <td>Repositorio en GitHub, reporte web en GitHub Pages y documento PDF estructurado (Página 1 y 2).</td>
             </tr>
             <tr>
-              <td><strong>8. Trabajo en equipo</strong></td>
-              <td>Participación equitativa documentada (33.3% por integrante), roles definidos y gobernanza colaborativa.</td>
-              <td style="text-align: center;"><span class="rubric-score-badge">5 / 5 pts</span></td>
-            </tr>
-            <tr style="background-color: var(--color-surface-muted);">
-              <td><strong>PUNTAJE TOTAL CONSOLIDADO</strong></td>
-              <td><strong>Cumplimiento integral de los ocho criterios en nivel sobresaliente (Excelente)</strong></td>
-              <td style="text-align: center;"><strong style="color: var(--color-emerald); font-size: 9.5pt;">40 / 40 pts</strong></td>
+              <td>8. Trabajo en equipo</td>
+              <td>Desarrollo colaborativo en Meet, distribución equilibrada de tareas y apoyo continuo (Página 2).</td>
             </tr>
           </tbody>
         </table>
+        <div class="table-note">
+          <strong>Nota.</strong> Presentada como guía de auditoría para la valoración objetiva del docente evaluador.
+        </div>
       </div>
 
-      <div class="page-footer-mini">
-        <span>Especialización en Ciencia de Datos y Machine Learning</span>
-        <span>Página 5</span>
+      <h2 class="apa-h2">Referencias</h2>
+      <div class="apa-references">
+        <p class="apa-ref">Becker, G. S. (1964). <em>Human capital: A theoretical and empirical analysis, with special reference to education</em>. National Bureau of Economic Research (NBER).</p>
+        <p class="apa-ref">Departamento Administrativo Nacional de Estadística [DANE]. (2024). <em>Gran Encuesta Integrada de Hogares (GEIH): Metodología y catálogo de microdatos</em>. Bogotá, Colombia. https://microdatos.dane.gov.co</p>
+        <p class="apa-ref">Mincer, J. (1974). <em>Schooling, experience, and earnings</em>. National Bureau of Economic Research (NBER), New York.</p>
+        <p class="apa-ref">Schultz, T. W. (1961). Investment in human capital. <em>The American Economic Review</em>, 51(1), 1–17.</p>
       </div>
 
     </div>
