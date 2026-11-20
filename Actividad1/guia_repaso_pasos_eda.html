@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía Rápida de Repaso • EDA Capital Humano GEIH DANE</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: Consolas, "Courier New", monospace;
+      
+      --color-primary: #1e3a8a;
+      --color-primary-soft: #2563eb;
+      --color-emerald: #047857;
+      --color-rose: #b91c1c;
+      --color-amber: #b45309;
+      
+      --color-text-main: #0f172a;
+      --color-text-muted: #475569;
+      --color-text-light: #64748b;
+      
+      --color-bg-page: #f8fafc;
+      --color-surface: #ffffff;
+      --color-surface-subtle: #f1f5f9;
+      --color-border: #e2e8f0;
+      --color-border-hover: #cbd5e1;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--color-bg-page);
+      color: var(--color-text-main);
+      line-height: 1.5;
+      font-size: 14px;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--color-primary);
+      padding-bottom: 1rem;
+    }
+
+    .badge-course {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      line-height: 1.25;
+      margin-bottom: 0.35rem;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--color-text-muted);
+    }
+
+    .quick-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 12px;
+      color: var(--color-text-light);
+      margin-top: 0.75rem;
+    }
+
+    .quick-meta strong {
+      color: var(--color-text-main);
+    }
+
+    /* STEP CARDS */
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .step-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 1.25rem 1.4rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: border-color 0.15s ease;
+    }
+
+    .step-card:hover {
+      border-color: var(--color-border-hover);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .step-tag {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-light);
+      background-color: var(--color-surface-subtle);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--color-border);
+    }
+
+    p {
+      margin-bottom: 0.5rem;
+      color: var(--color-text-main);
+    }
+
+    ul {
+      margin: 0.4rem 0 0.6rem 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* MINI METRICS */
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.65rem;
+      margin: 0.75rem 0;
+    }
+
+    .mini-stat {
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+    }
+
+    .mini-stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-text-light);
+      margin-bottom: 0.15rem;
+    }
+
+    .mini-stat-value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+
+    .mini-stat-note {
+      font-size: 10.5px;
+      color: var(--color-text-muted);
+    }
+
+    /* CODE SNIPPET */
+    code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background-color: var(--color-surface-subtle);
+      border: 1px solid var(--color-border);
+      padding: 0.15rem 0.35rem;
+      border-radius: 3px;
+      color: #1e293b;
+    }
+
+    .code-block {
+      background: var(--color-surface-subtle);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 0.65rem 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: #1e293b;
+      margin: 0.5rem 0;
+      overflow-x: auto;
+    }
+
+    /* CLAVE PARA RECORDAR (KEY TAKEAWAY) */
+    .key-takeaway {
+      border-left: 3px solid var(--color-primary);
+      padding: 0.45rem 0.75rem;
+      margin-top: 0.65rem;
+      font-size: 12.5px;
+      color: var(--color-text-muted);
+      background-color: var(--color-surface-subtle);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .key-takeaway strong {
+      color: var(--color-primary);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--color-border);
+      font-size: 11.5px;
+      color: var(--color-text-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    footer a {
+      color: var(--color-primary-soft);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <header>
+      <span class="badge-course">Especialización • Ciencia de Datos y ML • Semestre 1</span>
+      <h1>Guía Rápida de Repaso: Flujo Completo del EDA</h1>
+      <p class="subtitle">Resumen ejecutivo y conceptual de cada fase del proyecto sobre la GEIH del DANE para sustentación y repaso personal.</p>
+      
+      <div class="quick-meta">
+        <div>Módulo: <strong>04 - Toma de Decisiones</strong></div>
+        <div>Dataset: <strong>GEIH DANE (Mercado Laboral)</strong></div>
+        <div>Muestra Limpia: <strong>28.842 trabajadores</strong></div>
+        <div>Docente: <strong>Jairo Enrique Alba Talero</strong></div>
+      </div>
+    </header>
+
+    <main class="steps-container">
+
+      <!-- PASO 1 -->
+      <section class="step-card">
+        <div class="step-header">
+          <div class="step-num">1</div>
+          <h2 class="step-title">Tema y Pregunta de Investigación</h2>
+          <span class="step-tag">Fundamentación</span>
+        </div>
+        <p><strong>Enfoque Teórico:</strong> Teoría del Capital Humano (Schultz, Becker, Mincer): la educación formal y la formación para el trabajo incrementan la productividad individual y se retribuyen en mayores ingresos salariales.</p>
+        <p><strong>Problema en Colombia:</strong> Coexistencia de asimetrías severas: sectores intensivos en conocimiento con salarios altos frente a ramas masivas con baja escolaridad, alta informalidad y salarios atascados en el mínimo.</p>
+        <div class="key-takeaway">
+          <strong>Pregunta Central:</strong> ¿Qué sectores y departamentos presentan mayores rezagos y necesidades prioritarias de fortalecimiento de capital humano al cruzar educación e ingresos en la GEIH?
+        </div>
+      </section>
+
+      <!-- PASO 2 -->
+      <section class="step-card">
+        <div class="step-header">
+          <div class="step-num">2</div>
+          <h2 class="step-title">Descarga e Integración de Microdatos DANE</h2>
+          <span class="step-tag">Ingeniería de Datos</span>
+        </div>
+        <p><strong>Fuente:</strong> Catálogo oficial de Microdatos DANE (GEIH). Se descargaron e integraron dos módulos estratégicos mediante cruce relacional:</p>
+        <ul>
+          <li><code>Ocupados.CSV</code>: 29.611 filas, 202 columnas (ingresos, horas, rama económica CIIU).</li>
+          <li><code>Características generales...CSV</code>: 66.559 filas, 55 columnas (nivel educativo <code>P3042</code>, demografía).</li>
+        </ul>
+        <div class="code-block">
+# Llave relacional compuesta unívoca (vivienda + hogar + persona):
+left_join(datos_generales, by = c("DIRECTORIO", "SECUENCIA_P", "ORDEN"))
+        </div>
+        <div class="key-takeaway">
+          <strong>Punto Clave:</strong> Se preservó el 100% del universo de ocupados originales (29.611 registros) sin pérdida de filas en la integración.
+        </div>
+      </section>
+
+      <!-- PASO 3 -->
+      <section class="step-card">
+        <div class="step-header">
+          <div class="step-num">3</div>
+          <h2 class="step-title">Selección de Variables del Estudio</h2>
+          <span class="step-tag">Variables</span>
+        </div>
+        <ul>
+          <li><strong>Cuantitativa Continua:</strong> <code>INGLABO</code> (Ingreso laboral mensual en COP). Variable económica principal.</li>
+          <li><strong>Cualitativa Ordinal:</strong> <code>P3042</code> / <code>nivel_educativo</code> (13 niveles formales, de Ninguno a Doctorado).</li>
+          <li><strong>Territorial (Cualitativa Nominal):</strong> <code>DPTO</code> / <code>departamento</code> (33 divisiones DIVIPOLA DANE).</li>
+          <li><strong>Sectorial (Cualitativa Nominal):</strong> <code>RAMA2D_R4</code> / <code>rama</code> (CIIU Rev. 4 a dos dígitos; 44 ramas robustas).</li>
+          <li><strong>Ponderador Poblacional:</strong> <code>FEX_C18</code> (Factor de expansión demográfico para extrapolar a los 23.47 millones de ocupados).</li>
+        </ul>
+      </section>
+
+      <!-- PASO 4 -->
+      <section class="step-card">
+        <div class="step-header">
+          <div class="step-num">4</div>
+          <h2 class="step-title">Limpieza y Saneamiento de Datos</h2>
+          <span class="step-tag">Data Cleansing</span>
+        </div>
+        <p>Se aplicó un protocolo estricto documentado en cuatro decisiones metodológicas:</p>
+        <ul>
+          <li><strong>Duplicados:</strong> Verificación de claves primarias = <strong>0 duplicados</strong> (integridad estricta).</li>
+          <li><strong>Datos Faltantes (<code>NA = 601</code>, 2,03%):</strong> Exclusión por caso completo (<em>listwise deletion</em>). <em>Justificación:</em> Imputar salarios con la media/mediana atenúa la varianza y sesga los retornos del modelo de Mincer.</li>
+          <li><strong>Ingresos en Cero (<code>$0 COP = 168</code>, 0,57%):</strong> Trabajadores familiares sin remuneración fija o pasantes; se aislaron para focalizar en ingresos retribuidos efectivos.</li>
+        </ul>
+        <div class="mini-grid">
+          <div class="mini-stat">
+            <div class="mini-stat-label">Muestra Limpia</div>
+            <div class="mini-stat-value">28.842</div>
+            <div class="mini-stat-note">97,4% de completitud</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-label">Población Expandida</div>
+            <div class="mini-stat-value">23,47 M</div>
+            <div class="mini-stat-note">Ocupados representados</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PASO 5 -->
+      <section class="step-card">
+        <div class="step-header">
+          <div class="step-num">5</div>
+          <h2 class="step-title">Análisis Exploratorio de Datos (EDA) y Hallazgos</h2>
+          <span class="step-tag">Resultados Estadísticos</span>
+        </div>
+        
+        <p><strong>A. Resumen de la Variable Cuantitativa (Ingreso Laboral `INGLABO`):</strong></p>
+        <div class="mini-grid">
+          <div class="mini-stat">
+            <div class="mini-stat-label">Mediana (Q2)</div>
+            <div class="mini-stat-value">$1.423.500</div>
+            <div class="mini-stat-note">50% percibe &le; este monto</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-label">Moda Salarial</div>
+            <div class="mini-stat-value">$1.423.500</div>
+            <div class="mini-stat-note">Efecto ancla salario mínimo</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-label">Media (Promedio)</div>
+            <div class="mini-stat-value">$1.857.918</div>
+            <div class="mini-stat-note">+30,5% sobre la mediana</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-label">Asimetría Fisher</div>
+            <div class="mini-stat-value">13,39</div>
+            <div class="mini-stat-note">Sesgo positivo severo</div>
+          </div>
+        </div>
+        <ul>
+          <li><strong>Compresión del 50% central (IQR):</strong> Comprendido entre <code>Q1 = $880.000</code> y <code>Q3 = $2.000.000</code> (amplitud = $1.120.000).</li>
+          <li><strong>Ancla Salarial:</strong> Coincidencia exacta de <em>Mediana = Moda = Salario Mínimo</em>.</li>
+        </ul>
+
+        <p style="margin-top: 0.75rem;"><strong>B. Retornos Salariales por Nivel Educativo (Validación Empírica):</strong></p>
+        <ul>
+          <li><strong>Rezago formativo:</strong> Primaria ($800K) y sin escolaridad ($700K) sufren una penalización de <strong>-44% a -51%</strong> frente a la mediana nacional.</li>
+          <li><strong>Categoría Modal:</strong> Media académica con el <strong>32,62%</strong> de los ocupados ($1.400.000 COP).</li>
+          <li><strong>Salto Universitario:</strong> Mediana de <strong>$2.301.000 COP</strong> (+61,6% sobre la mediana nacional).</li>
+          <li><strong>Prima de Posgrado:</strong> Mediana de <strong>$4.500.000 COP</strong> (+216,1% sobre la mediana nacional).</li>
+        </ul>
+
+        <p style="margin-top: 0.75rem;"><strong>C. Cuadrante Crítico de Priorización Sectorial (Grupo 3):</strong></p>
+        <p>Se identificaron <strong>9 ramas económicas de mayor vulnerabilidad</strong> (&gt;40% de trabajadores con escolaridad hasta básica secundaria y mediana salarial inferior a la nacional), sumando a más de <strong>6,06 millones de ocupados expandidos</strong>:</p>
+        <ul>
+          <li><em>Agricultura y ganadería</em> ($800K), <em>Pesca y acuicultura</em> ($1.0M), <em>Construcción de edificios</em> ($1.3M), <em>Confección de prendas</em> ($1.3M), <em>Servicio doméstico</em> ($600K).</li>
+        </ul>
+
+        <p style="margin-top: 0.75rem;"><strong>D. Top 10 Departamental:</strong></p>
+        <p>Liderado por <strong>Bogotá D.C. ($1.8M)</strong>, <strong>San Andrés ($1.8M)</strong> y <strong>Antioquia ($1.6M)</strong>. Coinciden con los territorios de menor rezago educativo (&lt;18%), demostrando la correlación positiva entre capital humano y nivel salarial a escala geográfica.</p>
+      </section>
+
+      <!-- PASO 6 -->
+      <section class="step-card">
+        <div class="step-header">
+          <div class="step-num">6</div>
+          <h2 class="step-title">Entregables, Documentación y Machine Learning</h2>
+          <span class="step-tag">Cierre & ML</span>
+        </div>
+        <ul>
+          <li><strong>Cuaderno R Markdown:</strong> <code>actividad-1-analisis-de-datos.Rmd</code> (código ejecutable y reproducible en <code>knitr</code>).</li>
+          <li><strong>Reporte Web HTML:</strong> <code>actividad-1-analisis-de-datos.html</code> desplegado en GitHub Pages.</li>
+          <li><strong>Documento PDF Oficial:</strong> <code>Entrega_Tarea_1_EDA.pdf</code> estructurado bajo Normas APA 7 con portada formal y enlaces.</li>
+          <li><strong>Matriz Sectorial Exportada:</strong> <code>tabla_priorizacion_sectorial.csv</code> con métricas de 44 ramas económicas.</li>
+        </ul>
+        <div class="key-takeaway">
+          <strong>Proyección hacia Machine Learning:</strong> La matriz sectorial exportada sirve directamente como matriz de características (<em>feature matrix</em>) para aplicar algoritmos de agrupamiento no supervisado (<strong>K-Means, DBSCAN y Clustering Jerárquico</strong>) en etapas avanzadas de la especialización.
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>Especialización en Ciencia de Datos • Repaso Rápido de Actividad 1</div>
+      <div>
+        <a href="documento_entrega_tarea_1_eda.html">Ver Ficha APA 7</a> &nbsp;|&nbsp;
+        <a href="actividad-1-analisis-de-datos.html">Ver Reporte Web</a> &nbsp;|&nbsp;
+        <a href="Entrega_Tarea_1_EDA.pdf">Descargar PDF</a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
