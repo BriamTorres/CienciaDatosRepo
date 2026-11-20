@@ -1,6 +1,6 @@
 ---
 title: "Fortalecimiento del Capital Humano en los Sectores Económicos de Colombia"
-subtitle: "Análisis Exploratorio de Niveles Educativos, Ocupación e Ingresos Laborales a partir de la GEIH del DANE"
+subtitle: "Análisis Exploratorio de Niveles Educativos, Ocupación e Ingresos Laborales a partir de la GEIH del DANE — Docente: Jairo Enrique Alba Talero"
 author:
   - "Leidy Tatiana Jimenez"
   - "Nelson Felipe Guerrero Páez"
