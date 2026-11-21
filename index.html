@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Repositorio de Clases - Ciencia de Datos y Machine Learning</title>
+  <title>Repositorio de Clases y Actividades - Ciencia de Datos y Machine Learning</title>
   <style>
     :root {
       --bg-page: #f8fafc;
@@ -35,12 +35,12 @@
     }
 
     .container {
-      max-width: 960px;
+      max-width: 980px;
       margin: 0 auto;
     }
 
     header {
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       border-bottom: 1px solid var(--border-subtle);
       padding-bottom: 1.75rem;
     }
@@ -52,7 +52,8 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--primary);
-      background-color: #eff6ff;
+      background-color: #f1f5f9;
+      border: 1px solid var(--border-subtle);
       padding: 0.35rem 0.75rem;
       border-radius: 9999px;
       margin-bottom: 0.75rem;
@@ -85,10 +86,43 @@
       color: var(--text-main);
     }
 
+    /* Banner informativo sobre visualización de Notebooks */
+    .info-banner {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.15rem 1.35rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .info-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .info-content {
+      font-size: 0.92rem;
+      color: var(--text-main);
+    }
+
+    .info-content strong {
+      color: var(--primary);
+    }
+
+    .info-content p {
+      margin-top: 0.35rem;
+      color: var(--text-muted);
+    }
+
     .classes-grid {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.75rem;
     }
 
     .card {
@@ -120,6 +154,12 @@
       color: var(--text-main);
     }
 
+    .tags-container {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
     .card-tag {
       font-size: 0.75rem;
       background-color: var(--tag-bg);
@@ -127,6 +167,17 @@
       padding: 0.25rem 0.6rem;
       border-radius: 6px;
       font-weight: 500;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .card-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .card-meta strong {
+      color: var(--text-main);
     }
 
     .card-description {
@@ -135,32 +186,54 @@
       margin-bottom: 1.25rem;
     }
 
+    .card-description code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85em;
+      background-color: var(--tag-bg);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      color: var(--text-main);
+    }
+
+    .section-subtitle {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
     .card-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 0.65rem;
       align-items: center;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      font-size: 0.9rem;
+      gap: 0.45rem;
+      font-size: 0.88rem;
       font-weight: 500;
       text-decoration: none;
-      padding: 0.55rem 1rem;
+      padding: 0.5rem 0.95rem;
       border-radius: 8px;
-      transition: background-color 0.15s ease, opacity 0.15s ease;
+      border: 1px solid var(--border-subtle);
+      transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+      cursor: pointer;
     }
 
     .btn-primary {
       background-color: var(--primary);
       color: #ffffff;
+      border-color: var(--primary);
     }
 
     .btn-primary:hover {
       background-color: var(--primary-hover);
+      border-color: var(--primary-hover);
     }
 
     .btn-secondary {
@@ -169,12 +242,19 @@
     }
 
     .btn-secondary:hover {
-      opacity: 0.85;
+      background-color: #e2e8f0;
+      border-color: var(--border-hover);
     }
 
-    .card-upcoming {
-      opacity: 0.65;
-      border-style: dashed;
+    .btn-outline-primary {
+      background-color: transparent;
+      color: var(--primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-outline-primary:hover {
+      background-color: #eff6ff;
+      border-color: var(--primary);
     }
 
     footer {
@@ -190,6 +270,7 @@
       color: var(--primary);
       text-decoration: none;
     }
+
     footer a:hover {
       text-decoration: underline;
     }
@@ -200,7 +281,7 @@
     <header>
       <span class="badge-course">Especialización • Semestre 1</span>
       <h1>Ciencia de Datos y Aprendizaje Automático</h1>
-      <p class="subtitle">Directorio central de prácticas, protocolos reproducibles y reportes generados en R Markdown.</p>
+      <p class="subtitle">Directorio central de prácticas, protocolos reproducibles, análisis exploratorios y modelos en R y Python.</p>
       <div class="meta-bar">
         <div class="meta-item">Estudiante: <strong>Briam Torres</strong></div>
         <div class="meta-item">Repositorio: <strong>BriamTorres/CienciaDatosRepo</strong></div>
@@ -208,18 +289,33 @@
       </div>
     </header>
 
+    <!-- GUÍA RÁPIDA DE VISUALIZACIÓN DE NOTEBOOKS -->
+    <div class="info-banner">
+      <div class="info-icon">💡</div>
+      <div class="info-content">
+        <strong>¿Cómo visualizar los Jupyter Notebooks (.ipynb) sin descargar nada?</strong>
+        <p>
+          Los navegadores web no interpretan archivos <code>.ipynb</code> en bruto. Para que puedas revisar los resultados al instante sin descargar archivos ni configurar entornos locales, cada notebook fue convertido a un <strong>reporte HTML interactivo</strong> que conserva todo el código, tablas y gráficos. Haz clic en <em>"Ver Notebook (HTML interactivo) ↗"</em> o ábrelo directamente en <em>Google Colab</em> con un solo clic.
+        </p>
+      </div>
+    </div>
+
     <main class="classes-grid">
       <!-- CLASE 1 -->
       <article class="card">
         <div class="card-header">
           <h2 class="card-title">Clase 01: Limpieza y Diagnóstico de Datos</h2>
-          <span class="card-tag">R Markdown • HTML</span>
+          <div class="tags-container">
+            <span class="card-tag">R Markdown</span>
+            <span class="card-tag">HTML</span>
+          </div>
         </div>
         <p class="card-description">
           Diagnóstico de calidad de datos (<em>Data Profiling</em>) sobre variables cualitativas y cuantitativas: 
           detección de errores de digitación, tratamiento de valores nulos (<code>NA</code>), salarios negativos, 
           inconsistencias por sensibilidad a mayúsculas/minúsculas y corrección de outliers con gráficos de caja.
         </p>
+        <div class="section-subtitle">Accesos y Resultados:</div>
         <div class="card-actions">
           <a class="btn btn-primary" href="Clase1/Protocolo/limpiezaDatos.html" target="_blank">
             Abrir Reporte HTML ↗
@@ -237,23 +333,28 @@
       <article class="card">
         <div class="card-header">
           <h2 class="card-title">Actividad 01: Fortalecimiento del Capital Humano en Colombia</h2>
-          <span class="card-tag">Proyecto EDA • GEIH DANE</span>
+          <div class="tags-container">
+            <span class="card-tag">Proyecto EDA</span>
+            <span class="card-tag">GEIH DANE</span>
+            <span class="card-tag">R</span>
+          </div>
         </div>
-        <p class="card-description">
-          Análisis exploratorio y diagnóstico profundo sobre la relación entre el nivel educativo formal y los ingresos laborales en Colombia a partir de los microdatos oficiales de la GEIH del DANE (28.842 trabajadores analizados). Incluye integración relacional de módulos, tratamiento metodológico de valores nulos y ceros, 12 estadísticos descriptivos, análisis de asimetría salarial, retornos a la educación superior, matriz de priorización sectorial de 44 ramas económicas (CIIU Rev. 4) y Top 10 departamental.
-        </p>
-        <div class="card-meta" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+        <div class="card-meta">
           Integrantes: <strong>Leidy Tatiana Jimenez • Nelson Felipe Guerrero Páez • Briam Stiven Torres Salamanca</strong> &nbsp;|&nbsp; Docente: <strong>Jairo Enrique Alba Talero</strong>
         </div>
+        <p class="card-description">
+          Análisis exploratorio y diagnóstico profundo sobre la relación entre el nivel educativo formal y los ingresos laborales en Colombia a partir de los microdatos oficiales de la GEIH del DANE (28.842 trabajadores analizados). Incluye integración relacional de módulos, tratamiento metodológico de valores nulos y ceros, 12 estadísticos descriptivos, asimetría salarial, retornos a la educación superior y matriz de priorización sectorial de 44 ramas económicas (CIIU Rev. 4).
+        </p>
+        <div class="section-subtitle">Accesos y Resultados:</div>
         <div class="card-actions">
           <a class="btn btn-primary" href="Actividad1/actividad-1-analisis-de-datos.html" target="_blank">
             Abrir Reporte HTML ↗
           </a>
-          <a class="btn btn-primary" href="Actividad1/Entrega_Tarea_1_EDA.pdf" target="_blank" style="background-color: #047857; border-color: #047857;">
-            Descargar Documento PDF 📄
+          <a class="btn btn-secondary" href="Actividad1/Entrega_Tarea_1_EDA.pdf" target="_blank">
+            Documento PDF 📄
           </a>
           <a class="btn btn-secondary" href="Actividad1/documento_entrega_tarea_1_eda.html" target="_blank">
-            Ficha de Entrega APA 7
+            Ficha APA 7
           </a>
           <a class="btn btn-secondary" href="Actividad1/guia_repaso_pasos_eda.html" target="_blank">
             Guía de Repaso ⚡
@@ -270,18 +371,96 @@
         </div>
       </article>
 
-      <!-- PLANTILLA PRÓXIMA CLASE / ENTREGA -->
-      <article class="card card-upcoming">
+      <!-- CLASE 2 -->
+      <article class="card">
         <div class="card-header">
-          <h2 class="card-title">Clase 02: Modelado / Próximo Protocolo</h2>
-          <span class="card-tag">Próximamente</span>
+          <h2 class="card-title">Clase 02: Carga, Limpieza y Preparación de Datos con Python</h2>
+          <div class="tags-container">
+            <span class="card-tag">Python</span>
+            <span class="card-tag">Jupyter Notebook</span>
+            <span class="card-tag">Scikit-Learn</span>
+          </div>
         </div>
         <p class="card-description">
-          Espacio preparado para la siguiente práctica o sesión. Al generar el nuevo archivo HTML con RStudio o VS Code, 
-          se vinculará en esta sección de forma automática.
+          Flujo completo de depuración y preparación de datos sociodemográficos en Python: conexión y lectura de datos desde Google Drive mediante enlace directo de descarga, auditoría estructural de tipos y completitud, imputación de valores faltantes, codificación One-Hot para variables categóricas, escalado numérico y exportación desacoplada de datasets para análisis descriptivo y modelado predictivo.
         </p>
+        <div class="section-subtitle">Visualización y Entornos de Ejecución:</div>
+        <div class="card-actions" style="margin-bottom: 0.9rem;">
+          <a class="btn btn-primary" href="Clase2/Archivo_clase.html" target="_blank">
+            Ver Notebook (HTML interactivo) ↗
+          </a>
+          <a class="btn btn-outline-primary" href="https://colab.research.google.com/github/BriamTorres/CienciaDatosRepo/blob/main/Clase2/Archivo_clase.ipynb" target="_blank">
+            Abrir en Google Colab ⚡
+          </a>
+          <a class="btn btn-secondary" href="Clase2/Archivo_clase.ipynb" download>
+            Descargar Notebook (.ipynb)
+          </a>
+          <a class="btn btn-secondary" href="https://github.com/BriamTorres/CienciaDatosRepo/tree/main/Clase2" target="_blank">
+            Ver Carpeta en GitHub ↗
+          </a>
+        </div>
+        <div class="section-subtitle">Archivos y Datasets Generados:</div>
         <div class="card-actions">
-          <span class="btn btn-secondary" style="cursor: not-allowed;">En preparación</span>
+          <a class="btn btn-secondary" href="Clase2/conexion_drive.md" target="_blank">
+            Guía Conexión Drive (.md)
+          </a>
+          <a class="btn btn-secondary" href="Clase2/dataset_clase_1.csv" download>
+            Dataset Original (.csv)
+          </a>
+          <a class="btn btn-secondary" href="Clase2/dataset_limpio_descriptivo.csv" download>
+            Dataset Descriptivo (.csv)
+          </a>
+          <a class="btn btn-secondary" href="Clase2/dataset_preparado_ml.csv" download>
+            Dataset Preparado ML (.csv)
+          </a>
+        </div>
+      </article>
+
+      <!-- ACTIVIDAD 2 -->
+      <article class="card">
+        <div class="card-header">
+          <h2 class="card-title">Actividad 02: Preparación de Datos y Optimización Energética UPTC</h2>
+          <div class="tags-container">
+            <span class="card-tag">Taller Práctico II</span>
+            <span class="card-tag">Jupyter Notebook</span>
+            <span class="card-tag">Machine Learning</span>
+          </div>
+        </div>
+        <div class="card-meta">
+          Universidad Pedagógica y Tecnológica de Colombia (UPTC) • Sede Duitama • Modelos de Consumo Energético
+        </div>
+        <p class="card-description">
+          Pipeline riguroso de preparación de datos y análisis exploratorio para la optimización del consumo energético institucional de la UPTC (comedores, salones, laboratorios, auditorios y oficinas). Desarrollado bajo 4 fases metodológicas alineadas a la máxima rúbrica de evaluación: <strong>Fase I</strong> (Carga y <em>Data Profiling</em> estructural), <strong>Fase II</strong> (Limpieza, tratamiento de nulos, valores atípicos y consistencia física), <strong>Fase III</strong> (EDA multivariado de patrones temporales por sector) y <strong>Fase IV</strong> (Ingeniería de variables, transformaciones y selección de features para modelos de aprendizaje automático, con foco específico en la sede Duitama).
+        </p>
+        <div class="section-subtitle">Visualización y Entornos de Ejecución:</div>
+        <div class="card-actions" style="margin-bottom: 0.9rem;">
+          <a class="btn btn-primary" href="Actividad2/actividad2.html" target="_blank">
+            Ver Notebook (HTML interactivo) ↗
+          </a>
+          <a class="btn btn-outline-primary" href="https://colab.research.google.com/github/BriamTorres/CienciaDatosRepo/blob/main/Actividad2/actividad2.ipynb" target="_blank">
+            Abrir en Google Colab ⚡
+          </a>
+          <a class="btn btn-secondary" href="Actividad2/actividad2.ipynb" download>
+            Descargar Notebook (.ipynb)
+          </a>
+          <a class="btn btn-secondary" href="https://github.com/BriamTorres/CienciaDatosRepo/tree/main/Actividad2" target="_blank">
+            Ver Carpeta en GitHub ↗
+          </a>
+        </div>
+        <div class="section-subtitle">Documentación y Datasets:</div>
+        <div class="card-actions">
+          <a class="btn btn-secondary" href="Actividad2/Taller II. Especialización en IA.pdf" target="_blank">
+            Guía Oficial del Taller (PDF) 📄
+          </a>
+          <a class="btn btn-secondary" href="Actividad2/instrucciones.md" target="_blank">
+            Rúbrica y Fases (.md)
+          </a>
+          <a class="btn btn-secondary" href="Actividad2/dataset_limpio_descriptivo_duitama.csv" download>
+            Dataset Descriptivo Duitama (.csv)
+          </a>
+          <a class="btn btn-secondary" href="Actividad2/dataset_preparado_ml_duitama.csv" download>
+            Dataset Preparado ML (.csv)
+          </a>
         </div>
       </article>
     </main>
@@ -292,4 +471,3 @@
   </div>
 </body>
 </html>
-
