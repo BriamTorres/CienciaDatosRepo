@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía Metodológica: ¿Qué, Cómo, Por Qué y Para Qué? • Taller II UPTC</title>
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-hover: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --accent-teal: #0d9488;
+      --accent-amber: #d97706;
+      --accent-purple: #7c3aed;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2.5rem 1.25rem;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--primary);
+      text-decoration: none;
+      background-color: #f1f5f9;
+      border: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      transition: background-color 0.15s ease;
+    }
+
+    .back-link:hover {
+      background-color: #e2e8f0;
+    }
+
+    .badge-doc {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-purple);
+      background-color: #f1f5f9;
+      border: 1px solid var(--border-subtle);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+    }
+
+    h1 {
+      font-size: 1.95rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .meta-grid strong {
+      color: var(--text-main);
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    /* QUICK SUMMARY BOX */
+    .summary-box {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .summary-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .summary-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* NAVIGATION PILLS */
+    .phase-nav {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .phase-pill {
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--text-main);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.5rem 0.95rem;
+      border-radius: 9999px;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .phase-pill:hover {
+      border-color: var(--border-hover);
+      background-color: #f1f5f9;
+    }
+
+    /* PHASE HEADERS */
+    .phase-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .phase-header {
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border-subtle);
+    }
+
+    .phase-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+    }
+
+    .phase-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* STEP CARDS */
+    .step-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .step-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-md);
+    }
+
+    .step-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.15rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    .step-number {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .step-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .step-status {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background-color: #f1f5f9;
+      border: 1px solid var(--border-subtle);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    /* THE 4 PILLARS GRID */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .pillar-box {
+      background-color: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .pillar-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* Distinct header text colors without redundant border/bg matching */
+    .pillar-que .pillar-header {
+      color: var(--primary);
+    }
+
+    .pillar-como .pillar-header {
+      color: var(--accent-teal);
+    }
+
+    .pillar-porque .pillar-header {
+      color: var(--accent-amber);
+    }
+
+    .pillar-paraque .pillar-header {
+      color: var(--accent-purple);
+    }
+
+    .pillar-body {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      line-height: 1.55;
+    }
+
+    .pillar-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.8em;
+      background-color: #ffffff;
+      border: 1px solid var(--border-subtle);
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      color: var(--text-main);
+    }
+
+    /* SUMMARY MATRIX TABLE */
+    .matrix-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-subtle);
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 3.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 1.5rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="top-nav">
+        <a class="back-link" href="../index.html">← Volver al Portal General</a>
+        <span class="badge-doc">Guía de Repaso y Sustentación</span>
+      </div>
+      <h1>Explicación Metodológica Paso a Paso</h1>
+      <p class="subtitle">¿Qué se hizo, de qué manera, por qué y para qué en cada etapa del Taller II: Preparación de
+        Datos y Optimización Energética UPTC?</p>
+
+      <div class="meta-grid">
+        <div>
+          <span>Institución</span>
+          <strong>UPTC • Especialización en IA</strong>
+        </div>
+        <div>
+          <span>Sede Analizada</span>
+          <strong>Campus Duitama (~5.500 est.)</strong>
+        </div>
+        <div>
+          <span>Dimensión de Entrada</span>
+          <strong>262.800 filas × 26 columnas</strong>
+        </div>
+        <div>
+          <span>Resultado Final Saneado</span>
+          <strong>65.545 filas • Train/Test 80/20</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- RESUMEN EJECUTIVO CONCEPTUAL -->
+    <div class="summary-box">
+      <div class="summary-title">
+        <span>💡</span> La Lógica Rectora del Proyecto: Calidad Antes de Complejidad
+      </div>
+      <p class="summary-text">
+        En Ciencia de Datos aplica el principio axiomático <em>"Garbage In, Garbage Out"</em>: ningún algoritmo avanzado
+        de Machine Learning puede compensar fallas de captura en sensores IoT, sesgos de imputación o fugas de
+        información. Esta guía desglosa los <strong>21 pasos del proyecto</strong> respondiendo a las cuatro preguntas
+        fundamentales: qué acción se ejecutó, qué herramienta computacional se usó (cómo), qué justificación
+        matemática/física la sustentó (por qué) y qué beneficio directo aporta al modelado predictivo o a la gestión de
+        la UPTC (para qué).
+      </p>
+    </div>
+
+    <!-- NAVEGACIÓN RÁPIDA -->
+    <nav class="phase-nav">
+      <a class="phase-pill" href="#fase-1">Fase I: Carga & Exploración (Pasos 1-6)</a>
+      <a class="phase-pill" href="#fase-2">Fase II: Limpieza Duitama (Pasos 7-13)</a>
+      <a class="phase-pill" href="#fase-3">Fase III: EDA & Imputación (Pasos 14-17)</a>
+      <a class="phase-pill" href="#fase-4">Fase IV: Modelado ML (Pasos 18-21)</a>
+      <a class="phase-pill" href="#matriz-resumen">Tabla Comparativa Integral</a>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- FASE I -->
+    <!-- ========================================== -->
+    <section class="phase-section" id="fase-1">
+      <div class="phase-header">
+        <span class="phase-tag">Fase I • Metodología</span>
+        <h2 class="phase-title">Carga y Exploración Inicial de Datos (Data Profiling)</h2>
+      </div>
+
+      <!-- Paso 1 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Paso 01</div>
+            <h3 class="step-name">Carga de Datos desde Google Drive</h3>
+          </div>
+          <span class="step-status">Entorno & Reproducibilidad</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Ingesta de la serie histórica multianual (262.800 registros) directamente desde el
+              enlace público de Drive en memoria RAM con Pandas.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Extrayendo el <code>FILE_ID</code> y formateando la URL directa:
+              <code>https://drive.google.com/uc?export=download&id=...</code> en <code>pd.read_csv()</code>.
+            </div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">Evita depender de archivos locales manuales, garantizando que cualquier evaluador
+              ejecute el notebook en Colab con un solo clic.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Garantizar reproducibilidad científica inmediata y trazabilidad de los datos de
+              origen sin fricción de despliegue.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 2 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Paso 02</div>
+            <h3 class="step-name">Identificación de Dimensiones y Memoria</h3>
+          </div>
+          <span class="step-status">Diagnóstico Estructural</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Cálculo del volumen dimensional exacto (262.800 filas × 26 columnas) y del consumo
+              en memoria RAM (~58 MB).</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Invocando <code>df.shape</code> y midiendo el uso profundo con
+              <code>df.memory_usage(deep=True).sum()</code>.
+            </div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">Constatar si la densidad de la serie temporal coincide con el muestreo horario
+              esperado para las 4 sedes durante varios años de operación.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Planificar la capacidad computacional en Python y verificar que la muestra recibida
+              no haya sufrido truncamientos en la descarga.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 3 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Paso 03</div>
+            <h3 class="step-name">Auditoría de Tipos de Datos (Data Dictionary)</h3>
+          </div>
+          <span class="step-status">Integridad de Esquema</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Inspección de tipos primitivos (enteros, flotantes, cadenas de texto, booleanos) y
+              conversión de <code>timestamp</code> a <code>datetime64</code>.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Generando una tabla resumen con <code>df.dtypes</code> y aplicando
+              <code>pd.to_datetime()</code> sobre la serie temporal.
+            </div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">Si las fechas se tratan como simples cadenas de texto, es matemáticamente imposible
+              extraer estacionalidades horarias o semanales.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Habilitar análisis cronológico real y asegurar que los algoritmos de Scikit-Learn
+              reciban tipos numéricos estrictos.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 4 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Paso 04</div>
+            <h3 class="step-name">Exploración de Sedes y Representatividad</h3>
+          </div>
+          <span class="step-status">Balance Territorial</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Mapeo del balance muestral de las 4 sedes de la UPTC: Tunja (40%), Duitama (25%),
+              Sogamoso (25%) y Chiquinquirá (10%).</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Tabulaciones de frecuencias absolutas y relativas porcentuales con
+              <code>df['sede'].value_counts(normalize=True)</code>.
+            </div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">La densidad de registros debe guardar proporción lógica con el tamaño poblacional e
+              infraestructura de cada campus.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Comprobar que Duitama cuenta con volumen estadístico suficiente (65.700
+              observaciones) para entrenar modelos predictivos robustos.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 5 & 6 agrupados conceptualmente -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Pasos 05 y 06</div>
+            <h3 class="step-name">Estadísticas Descriptivas y Detección de Inconsistencias</h3>
+          </div>
+          <span class="step-status">Detección de Anomalías</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Cálculo de medias, medianas, percentiles, asimetría (skewness) y detección temprana
+              de consumos negativos y nulos en el dataset crudo.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Combinación de <code>.describe().T</code> con <code>df.isnull().sum()</code> y
+              filtros lógicos <code>df['energia_total_kwh'] &lt; 0</code>.</div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">La energía no puede ser negativa en consumidores pasivos; valores &lt; 0 evidencian
+              fallas de calibración o voltajes invertidos en sensores IoT.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Establecer la línea base para diseñar los filtros de saneamiento de la Fase II sin
+              sesgar los análisis posteriores.</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- FASE II -->
+    <!-- ========================================== -->
+    <section class="phase-section" id="fase-2">
+      <div class="phase-header">
+        <span class="phase-tag">Fase II • Metodología</span>
+        <h2 class="phase-title">Limpieza y Depuración de Datos (Foco Sede Duitama)</h2>
+      </div>
+
+      <!-- Paso 7 y 8 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Pasos 07 y 08</div>
+            <h3 class="step-name">Segmentación y Filtrado Exclusivo de la Sede DUITAMA</h3>
+          </div>
+          <span class="step-status">Aislamiento de Dominio</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Aislamiento de los 65.700 registros del campus Duitama ignorando las demás sedes
+              que operan con dinámicas distintas.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Filtrado léxico insensible a mayúsculas/espacios:
+              <code>df['sede'].str.strip().str.upper() == 'DUITAMA'</code>.
+            </div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">La sede Tunja tiene 20.000 estudiantes y dinámicas térmicas distintas; mezclar
+              sedes introduciría ruido multimodal artificial al modelo.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Construir un modelo especializado y exacto para la realidad operativa, de ocupación
+              y climática de la UPTC Duitama.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 10 y 11 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Pasos 10 y 11</div>
+            <h3 class="step-name">Auditoría y Eliminación de Registros Negativos Inválidos</h3>
+          </div>
+          <span class="step-status">Saneamiento Físico</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Detección y remoción estricta de <strong>155 registros corruptos</strong> que
+              tenían valores negativos en <code>co2_kg</code> y <code>energia_total_kwh</code>.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Máscara de exclusión lógica:
+              <code>df_valido = df[~((df['co2_kg'] &lt; 0) | (df['energia_total_kwh'] &lt; 0))]</code>.
+            </div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">Son anomalías de hardware (falla de telemetría/cero del transductor). Imputar con
+              promedio o mediana falsearía la física del sistema.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Proteger al algoritmo de Machine Learning para que aprenda funciones físicas
+              válidas y nunca prediga consumos negativos.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 12 y 13 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Pasos 12 y 13</div>
+            <h3 class="step-name">Deduplicación Temporal y Normalización Léxica</h3>
+          </div>
+          <span class="step-status">Consistencia de Clave</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Deduplicación sobre la clave natural <code>timestamp</code> y normalización de
+              textos en <code>periodo_academico</code> ('2023- 1' → '2023-1').</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Con <code>df.drop_duplicates(subset=['timestamp'], keep='first')</code> y limpieza
+              con expresiones regulares (regex).</div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">No pueden existir dos estados energéticos distintos para la misma sede en el mismo
+              instante; los errores de tipografía fragmentan categorías.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Evitar duplicidades en la serie de tiempo y prevenir que el One-Hot Encoding genere
+              columnas redundantes innecesarias.</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- FASE III -->
+    <!-- ========================================== -->
+    <section class="phase-section" id="fase-3">
+      <div class="phase-header">
+        <span class="phase-tag">Fase III • Metodología</span>
+        <h2 class="phase-title">Análisis Exploratorio de Datos (EDA) e Imputación Estadística</h2>
+      </div>
+
+      <!-- Paso 14 y 15 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Pasos 14 y 15</div>
+            <h3 class="step-name">Distribución Sectorial, Histogramas y Asimetría</h3>
+          </div>
+          <span class="step-status">Comprensión de Demanda</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Análisis descriptivo de los 5 sectores (comedor, salones, laboratorios, auditorios,
+              oficinas) mediante media, mediana y curvas KDE.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Matriz de histogramas con líneas de referencia para la media y mediana,
+              cuantificando asimetría con <code>.skew()</code>.</div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">Los consumos tienen fuerte asimetría positiva (colas largas por eventos
+              extraordinarios o picos diurnos); la media se desvía por outliers.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Identificar que <strong>Salones y Oficinas</strong> explican el mayor volumen y
+              justificar el uso de la mediana para imputar faltantes.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 16 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Paso 16</div>
+            <h3 class="step-name">Imputación Estadística Rigurosa de Valores Nulos</h3>
+          </div>
+          <span class="step-status">Completitud Numérica</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Tratamiento diferenciado de nulos: <strong>Mediana ($\tilde{x}$)</strong> para
+              continuas asimétricas, <strong>Moda</strong> para categóricas y <strong>Cero</strong> para inactividad.
+            </div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Con <code>df[col].fillna(df[col].median())</code> y
+              <code>fillna(df[col].mode()[0])</code> verificando que el dataset final tenga 0 nulos.
+            </div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">La mediana es un estimador robusto no paramétrico que resiste la distorsión de los
+              valores extremos presentes en telemetría.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Permitir que los algoritmos de Scikit-Learn (que fallan con valores
+              <code>NaN</code>) procesen la totalidad de las 65.545 observaciones.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 17 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Paso 17</div>
+            <h3 class="step-name">Matriz de Correlación Lineal (Heatmap)</h3>
+          </div>
+          <span class="step-status">Análisis de Relaciones</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Cálculo de correlaciones de Pearson ($r$) entre variables físicas y renderizado del
+              mapa de calor analítico.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Aplicando <code>df.corr()</code> y visualizando con <code>sns.heatmap()</code> en
+              paleta divergente centrada en cero.</div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">Permite descubrir las variables con mayor capacidad predictiva sobre la demanda y
+              detectar colinealidades espurias.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Confirmar que <code>ocupacion_pct</code> y la hora del día son los motores
+              primarios de consumo eléctrico en la UPTC Duitama.</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- FASE IV -->
+    <!-- ========================================== -->
+    <section class="phase-section" id="fase-4">
+      <div class="phase-header">
+        <span class="phase-tag">Fase IV • Metodología</span>
+        <h2 class="phase-title">Preparación para Modelado Predictivo de Machine Learning</h2>
+      </div>
+
+      <!-- Paso 18 y 19 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Pasos 18 y 19</div>
+            <h3 class="step-name">Definición de Variable Objetivo y Feature Engineering</h3>
+          </div>
+          <span class="step-status">Diseño de Entrada / Salida</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Target: $\mathbf{y} = \text{energia\_total\_kwh}$. Features: variables climáticas,
+              ocupación, indicadores de calendario y tiempo extraído.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Extracción de <code>hora</code>, <code>dia_semana</code>, <code>mes</code> a partir
+              de <code>timestamp</code> junto con booleanos operativos.</div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">El consumo energético sigue ciclos circadianos (día/noche) e institucionales
+              (clases, parciales, vacaciones, fines de semana).</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Dotar a los modelos de capacidad para anticipar la demanda futura con base en el
+              calendario y condiciones meteorológicas.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 20 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Paso 20</div>
+            <h3 class="step-name">Exclusión Justificada de Variables (Prevención de Data Leakage)</h3>
+          </div>
+          <span class="step-status">Blindaje Metodológico</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">Eliminación de componentes sectoriales (comedor, salones...), <code>co2_kg</code>,
+              identificadores (<code>reading_id</code>) y constantes.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Ejecutando <code>df.drop(columns=[...])</code> respaldado por una tabla formal de
+              auditoría de causalidad temporal.</div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body"><strong>Fuga de información (Data Leakage):</strong> los sectores suman la energía
+              total; usarlos crearía un modelo tramposo inútil en el mundo real. <code>co2_kg</code> ocurre después del
+              consumo.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Asegurar que el modelo sea <strong>prospectivo y generalizable</strong>: capaz de
+              predecir la demanda de mañana con datos disponibles hoy.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paso 21 -->
+      <article class="step-card">
+        <div class="step-card-header">
+          <div>
+            <div class="step-number">Paso 21</div>
+            <h3 class="step-name">Codificación One-Hot y Partición Cronológica Train/Test</h3>
+          </div>
+          <span class="step-status">Tensores de Entrenamiento</span>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box pillar-que">
+            <div class="pillar-header">🎯 ¿Qué se hizo?</div>
+            <div class="pillar-body">One-Hot Encoding con <code>drop_first=True</code> y división <strong>80%
+                Entrenamiento / 20% Prueba</strong> respetando el orden del tiempo.</div>
+          </div>
+          <div class="pillar-box pillar-como">
+            <div class="pillar-header">⚙️ ¿Cómo se hizo?</div>
+            <div class="pillar-body">Con <code>pd.get_dummies()</code> y split por índice temporal sin mezcla aleatoria
+              (sin shuffle).</div>
+          </div>
+          <div class="pillar-box pillar-porque">
+            <div class="pillar-header">❓ ¿Por qué?</div>
+            <div class="pillar-body">En series de tiempo un split aleatorio permite que el modelo "mire el futuro" para
+              predecir el pasado, falseando las métricas de error.</div>
+          </div>
+          <div class="pillar-box pillar-paraque">
+            <div class="pillar-header">🚀 ¿Para qué?</div>
+            <div class="pillar-body">Simular exactamente el entorno de producción donde el modelo entrenado con el
+              pasado pronostica los períodos venideros.</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TABLA COMPARATIVA SÍNTESIS -->
+    <!-- ========================================== -->
+    <section class="matrix-card" id="matriz-resumen">
+      <h2 style="font-size: 1.35rem; margin-bottom: 0.75rem; color: var(--text-main);">Matriz Síntesis de Calidad:
+        Estado Inicial vs. Estado Final</h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Esta tabla contrasta el estado del conjunto crudo frente a los datos depurados para Duitama, evidenciando el
+        cumplimiento riguroso de cada criterio de la rúbrica institucional:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Dimensión Evaluada</th>
+            <th>Estado Inicial (Crudo Multicampus)</th>
+            <th>Estado Final (Saneado Duitama)</th>
+            <th>Impacto y Justificación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Población & Sede</strong></td>
+            <td>4 Sedes mezcladas (262.800 filas)</td>
+            <td>100% Sede Duitama aislada (65.545 filas)</td>
+            <td>Elimina la heterogeneidad y sesgo por tamaño de infraestructura.</td>
+          </tr>
+          <tr>
+            <td><strong>Valores Negativos</strong></td>
+            <td>155 registros corruptos en energía y CO₂</td>
+            <td>0 registros negativos</td>
+            <td>Se depuran fallas de hardware en sensores IoT; no se falsea la física.</td>
+          </tr>
+          <tr>
+            <td><strong>Duplicados Temporales</strong></td>
+            <td>Colisiones horarias detectadas</td>
+            <td>0 duplicados en <code>timestamp</code></td>
+            <td>Consistencia temporal de clave primaria estricta.</td>
+          </tr>
+          <tr>
+            <td><strong>Valores Faltantes (NaN)</strong></td>
+            <td>Proporciones de hasta 3% en variables clave</td>
+            <td>0 valores nulos (100% completitud)</td>
+            <td>Imputación con mediana ($\tilde{x}$) robusta ante colas largas.</td>
+          </tr>
+          <tr>
+            <td><strong>Inconsistencias Léxicas</strong></td>
+            <td>Espacios y variantes en periodos académicos</td>
+            <td>Categorías limpias y normalizadas</td>
+            <td>Evita dispersión innecesaria en la matriz de variables dummy.</td>
+          </tr>
+          <tr>
+            <td><strong>Riesgo de Data Leakage</strong></td>
+            <td>Sectores sumatorios y métricas post-consumo presentes</td>
+            <td>Filtrado riguroso de 14 variables espurias</td>
+            <td>Garantiza un modelo predictivo legítimo y generalizable.</td>
+          </tr>
+          <tr>
+            <td><strong>Estructura para ML</strong></td>
+            <td>Datos mixtos sin codificar</td>
+            <td>Matrices $X_{train}$, $X_{test}$, $y_{train}$, $y_{test}$</td>
+            <td>Split temporal 80/20 ordenado cronológicamente para producción.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>Guía de Repaso Metodológico • Maestría / Especialización en Inteligencia Artificial • UPTC</p>
+      <p style="margin-top: 0.35rem;"><a href="../index.html">← Volver al Portal de Clases y Actividades</a></p>
+    </footer>
+  </div>
+</body>
+
+</html>
